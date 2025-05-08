@@ -1,0 +1,221 @@
+.auth-container {
+    display: flex;
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  /* Левая часть с категориями */
+  .categories-section {
+    width: 50%;
+    padding: 0.5px;
+    position: relative;
+  }
+  
+  .main-title-container {
+    width: 398px;
+    height: 51px;
+    top: 181px;
+    left: 129px;
+    position: absolute;
+    margin: 0 auto 40px;
+    border-radius: 20px;
+    background-color: #FFDCE5;
+  }
+  
+  .main-title {
+    font-size: 32px;
+    font-weight: 400;
+    padding: 6px;
+    color: #000;
+    text-align: center;
+    margin: 0;
+  }
+  
+  /* Правая часть с формой */
+  .form-section {
+    width: 50%;
+    padding: 148px 200px 0 826px;
+  }
+  
+  .auth-header {
+    width: 430px;
+    height: 120px;
+    margin-bottom: 72px; /* 340px - 148px - 120px */
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .auth-header h2 {
+    width: 390px;
+    height: 40px;
+    padding: 0 20px;
+    justify-content: center;
+    font-size: 36px;
+    font-weight: 600;
+    margin: 0;
+  }
+  
+  .auth-header p {
+    width: 390px;
+    height: 50px;
+    padding: 0 20px;
+    font-weight: 400;
+    font-size: 18px;
+    color: #000000;
+    margin: 0;
+    opacity: 0.4;
+  }
+  
+  .auth-form {
+    width: 390px;
+    padding: 0 20px;
+  }
+  
+  .input-group {
+    margin-bottom: 32px;
+    width: 390px;
+  }
+  
+  .input-group input {
+    width: 356px;
+    height: 25px;
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .submit-block {
+    width: 390px;
+    height: 114px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 32px;
+  }
+  
+  .submit-block button {
+    width: 100%;
+    padding: 14px;
+    background: #000000;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  .submit-block p {
+    font-size: 12px;
+    color: #999;
+    text-align: center;
+    margin: 0;
+  }
+
+  .submit-block p strong{
+    color: #000;
+    font-weight: 500;
+  }
+  
+  .divider {
+    display: flex;
+    align-items: center;
+    margin: 18px 0;
+    opacity: 0.4;
+  }
+  
+  .divider::before {
+    width: 430px;
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #999;
+  }
+  
+  /* Стиль только для разделителя с текстом "Или" */
+  .divider-with-text {
+    gap: 16px;
+    height: 28px;
+    width: 390px;
+    padding: 0 20px;
+    margin-bottom: 40px;
+  }
+  
+  .divider-with-text::before,
+  .divider-with-text::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #999;
+  }
+  
+  .google-btn {
+    width: 390px;
+    height: 62px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 12px 16px;
+    margin: 0 20px;
+  }
+  
+  .google-btn img {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .auth-link{
+    width: 280px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 50px auto 0;
+    font-size: 14px;
+    color: #999;
+  }
+
+  .auth-link a {
+    color: #000000;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  /* Стили для сообщения об ошибке */
+  .auth-error {
+    color: #ff4444;
+    background: #ffebee;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  /* Стиль для неактивной кнопки */
+  .submit-block button:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+  }
+
+  .skip-link {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #666;
+    text-decoration: underline;
+    font-size: 14px;
+  }
+  
+  h3 {
+    font-size: 18px;
+    margin: 20px 0 10px;
+    color: #333;
+  }

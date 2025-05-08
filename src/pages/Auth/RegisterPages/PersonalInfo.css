@@ -1,0 +1,221 @@
+.personal-info-container {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+    font-family: 'Inter', sans-serif;
+    background-image: url('image/personalinfo.png');
+    background-size: cover;    /* Масштабирует изображение с сохранением пропорций */
+    background-position: center; /* Центрирует изображение */
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Фиксирует фон при скролле (опционально) */
+    }
+  
+  .info-window {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 45%;
+    height: 958.6px;
+    background: white;
+    margin: 55px 62px;
+    border-radius: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .skip-button {
+    position: absolute;
+    width: 122px;
+    height: 36px;
+    top: 27px;
+    margin-left: 77%;
+    background: #000000;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  
+  .profile-photo-container {
+    position: absolute;
+    top: 42px;
+    width: 120px;
+    height: 120px;
+  }
+  
+  .profile-photo {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .photo-placeholder {
+    width: 100%;
+    height: 100%;
+    background-image: url('image/fotoprofile1234.png');
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+  }
+  
+  .add-photo-button {
+    position: absolute;
+    width: 42px;
+    height: 42px;
+    bottom: 0;
+    right: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  
+  .add-photo-button img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .info-header {
+    position: absolute;
+    width: 60%;
+    margin-bottom: 10px;
+    line-height: 100%;
+    align-self: stretch;
+    top: 220px;
+  }
+  
+  .info-header h2 {
+    font-size: 28px;
+    margin-bottom: 8px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+  }
+  
+  .info-header p {
+    color: #666;
+    font-size: 14px;
+  }
+
+  .info-header p strong {
+    font-weight: 600;
+    color: #000;
+  }
+  
+  .name-fields {
+    position: absolute;
+    width: 60%;
+    height: 276px;
+    display: flex;
+    flex-direction: column;
+    top: 330px;
+  }
+  
+  .city-field {
+    position: absolute;
+    width: 60%;
+    height: 104px;
+    top: 530px;
+  }
+  
+  .contact-field {
+    position: absolute;
+    width: 60%;
+    height: 100px;
+    top: 680px;
+  }
+  
+  .input-field {
+    margin-bottom: 20px;
+  }
+  
+  .input-field input {
+    width: 100%;
+    height: 36px;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 100%;
+    border-style: none;
+    border: none;
+    border-bottom: 2px solid #00000020;
+    padding: 5px 0;
+    outline: none;
+  }
+  
+  .input-field p{
+    width: 390px;
+    height: 24px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 100%;
+    color: #000000;
+    align-self: stretch;
+  }
+
+  .city-select {
+    position: absolute;
+    width: 100%;
+    height: 36px;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 100%;
+    border-bottom: 2px solid #00000020;
+    color: #00000093;
+    padding: 15px 0 0;
+    cursor: pointer;
+  }
+
+  .city-select img{
+    position: absolute;
+    left: 95%;
+  }
+  
+  .cities-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    z-index: 10;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  
+  .city-option {
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .city-option:hover {
+    background-color: #f5f5f5;
+  }
+
+  .continue-button {
+    width: 100%;
+    height: 62px;
+    background: #000;
+    font-family: 'SF Pro Text', sans-serif;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    position: absolute;
+    top: 170%;
+  }
+  
+  .continue-button:hover {
+    background: #333;
+  }

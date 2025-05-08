@@ -1,6 +1,6 @@
 import React from 'react';
-import AuthForm from "../../components/AuthForm/AuthForm";
+import AuthPage from './AuthPage';
 
-export default function Login() {
-  return <AuthForm type="login" />;
-}
+const Login = () => <AuthPage isLogin={true} />;
+
+export default Login;
