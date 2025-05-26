@@ -1,34 +1,90 @@
+.slider-container {
+  position: relative;
+  width: 100%;
+}
+
 .restaurant-slider {
-    margin: 0 -10px;
+  display: flex;
+  gap: 12px;
+  padding: 10px 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  width: 100%;
+  height: 145px;
+  scroll-behavior: smooth;
+}
+
+.restaurant-slider::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 60px;
+  height: 60px;
+  background: white;
+  border: 2px solid #000000;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.scroll-button:hover {
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  background: #f8f8f8;
+  border: 1px solid #000000;
+}
+
+.scroll-button.left {
+  left: -26px;
+}
+
+.scroll-button.right {
+  right: -26px;
+}
+
+.scroll-button img {
+  width: 12px;
+  height: 23px;
+}
+
+.scroll-button.left img {
+  padding-right: 10%;
+}
+
+.scroll-button.right img {
+  padding-left: 10%;
+}
+
+@media (max-width: 768px) {
+  .scroll-button {
+    display: none;
   }
   
-  .restaurant-card {
-    background: white;
-    border-radius: 12px;
-    padding: 15px;
-    margin: 0 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  .restaurant-slider {
+    padding: 10px 0;
   }
-  
-  .restaurant-image {
-    width: 10px;
-    height: 50px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 10px;
-  }
-  
-  .restaurant-info h3 {
-    font-size: 18px;
-    margin-bottom: 5px;
-  }
-  
-  .restaurant-info p {
-    color: #666;
-    font-size: 14px;
-  }
-  
-  .slick-prev:before,
-  .slick-next:before {
-    color: #333;
-  }
+}
+
+.restaurants-section {
+  width: 100%;
+  margin-top: 10px;
+  position: relative;
+}
+
+.restaurants-section h2 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 32px;
+  color: #2E2E2E;
+  margin-bottom: 20px;
+}

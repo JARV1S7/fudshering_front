@@ -1,0 +1,112 @@
+.profile-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 118px;
+  z-index: 1000;
+}
+
+.profile-modal {
+  width: 509px;
+  height: 600px;
+  background: white;
+  border-radius: 20px;
+  border: 0.6px solid #E0E0E0;
+  padding: 30px;
+  position: relative;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.modal-header h2 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 110%;
+  margin: 0;
+  width: 199px;
+  height: 35px;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+  color: #8B8B8B;
+}
+
+.input-field-header {
+  width: 449px;
+  height: 75px;
+  border-radius: 20px;
+  border: 1px solid #E0E0E0;
+  margin-bottom: 20px;
+  position: relative;
+  background:#EDEDED;
+}
+
+.input-field-header label {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 110%;
+  color: #8B8B8B;
+  display: block;
+  margin-bottom: 8px;
+  padding: 9px 23px 0;
+}
+
+.input-content {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 110%;
+  letter-spacing: 1%;
+  color: #2E2E2E;
+}
+
+.input-field-header input {
+  width: 100%;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 110%;
+  letter-spacing: 1%;
+  color: #2E2E2E;
+  outline: none;
+  padding: 0;
+}
+
+.save-button {
+  width: 449px;
+  height: 75px;
+  background: #2E2E2E;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  cursor: pointer;
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  transition: background 0.3s ease;
+}
+
+.save-button:hover {
+  background: #1E1E1E;
+}

@@ -1,98 +1,257 @@
 .categories-container {
-    display: grid;
-    gap: 16px;
+  display: grid;
+  gap: 16px;
+}
+
+/* Основные стили контейнера */
+.categories-container.main-layout {
+  position: relative;
+  width: 100%;
+  max-width: 1623px;
+  aspect-ratio: 1623/525;
+}
+
+.categories-container.main-layout .category-button {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.categories-container.main-layout .category-button:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.categories-container.main-layout .main-page-выпечка {
+  width: 31.1%;
+  height: 46.79%;
+  top: 0;
+  left: 0;
+}
+
+.categories-container.main-layout .main-page-десерты {
+  width: 15.135%;
+  height: 46.79%;
+  top: 0;
+  left: 33.2%;
+}
+
+.categories-container.main-layout .main-page-заморозка {
+  width: 15.135%;
+  height: 46.79%;
+  top: 0;
+  left: 50.5%;
+}
+
+.categories-container.main-layout .main-page-салаты {
+  width: 15.135%;
+  height: 46.79%;
+  top: 0;
+  left: 67.7%;
+}
+
+.categories-container.main-layout .main-page-хлеб {
+  width: 15.135%;
+  height: 46.79%;
+  top: 0;
+  left: 84.88%;
+}
+
+.categories-container.main-layout .main-page-боулы {
+  width: 15.135%;
+  height: 46.79%;
+  top: 52.2%;
+  left: 0;
+}
+
+.categories-container.main-layout .main-page-гарниры {
+  width: 15.135%;
+  height: 46.79%;
+  top: 52.2%;
+  left: 17.4%;
+}
+
+.categories-container.main-layout .main-page-поке {
+  width: 15.135%;
+  height: 46.79%;
+  top: 52.2%;
+  left: 34.7%;
+}
+
+.categories-container.main-layout .main-page-другое {
+  width: 48.32%;
+  height: 46.79%;
+  top: 52.2%;
+  left: 51.7%;
+}
+
+@media (max-width: 1200px) {
+  .categories-container.main-layout {
+    height: 400px;
   }
-  
-  /* Стили для страницы регистрации */
-  .categories-container.register-layout {
-    position: relative;
-    height: 800px;
-  }
-  
-  .categories-container.register-layout .main-category {
-    position: absolute;
-    width: 390px;
-    height: 160px;
-    top: 241px;
-    left: 133px;
-  }
-  
-  .categories-container.register-layout .sub-category {
-    position: absolute;
-    width: 190px;
-    height: 190px;
-  }
-  
-  /* Позиционирование для регистрации */
-  .categories-container.register-layout .sub-category:nth-child(2) { top: 211px; left: 539px; } /* Салаты */
-  .categories-container.register-layout .sub-category:nth-child(3) { top: 414px; left: 133px; } /* Хлеб */
-  .categories-container.register-layout .sub-category:nth-child(4) { top: 414px; left: 336px; } /* Заморозка */
-  .categories-container.register-layout .sub-category:nth-child(5) { top: 414px; left: 539px; } /* Боулы */
-  .categories-container.register-layout .sub-category:nth-child(6) { top: 617px; left: 133px; } /* Гарниры */
-  .categories-container.register-layout .sub-category:nth-child(7) { top: 617px; left: 336px; } /* Поке */
-  .categories-container.register-layout .sub-category:nth-child(8) { top: 617px; left: 539px; } /* Десерты */
-  
-  /* Стили для каталога */
-  .categories-container.catalog-layout {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  }
-  
-  .categories-container.catalog-layout .main-category {
-    grid-column: span 2;
-    height: 250px;
-  }
-  
-  .categories-container.catalog-layout .sub-category {
-    height: 180px;
-  }
-  
-  /* Общие стили кнопок */
-  .category-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-  }
-  
-  .category-button:hover {
-    transform: scale(1.03);
-  }
-  
-  .category-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background:none;
-    border-radius: 8px;
+}
+
+@media (max-width: 992px) {
+  .categories-container.main-layout {
+    height: 350px;
   }
   
   .category-button span {
-    position: relative;
-    z-index: 1;
-    color: white;
-    font-size: 0px;
-    font-weight: 500;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    font-size: 14px !important;
   }
+}
+
+@media (max-width: 768px) {
+  .categories-container.main-layout {
+    height: 600px;
+    aspect-ratio: unset;
+  }
+  
+  .categories-container.main-layout .main-page-выпечка {
+    width: 48%;
+    height: 16%;
+    left: 0;
+  }
+  
+  .categories-container.main-layout .main-page-десерты,
+  .categories-container.main-layout .main-page-заморозка,
+  .categories-container.main-layout .main-page-салаты,
+  .categories-container.main-layout .main-page-хлеб {
+    width: 23%;
+    height: 16%;
+    top: 18%;
+  }
+  
+  .categories-container.main-layout .main-page-десерты { left: 0; }
+  .categories-container.main-layout .main-page-заморозка { left: 25%; }
+  .categories-container.main-layout .main-page-салаты { left: 50%; }
+  .categories-container.main-layout .main-page-хлеб { left: 75%; }
+  
+  .categories-container.main-layout .main-page-боулы,
+  .categories-container.main-layout .main-page-гарниры,
+  .categories-container.main-layout .main-page-поке {
+    width: 30%;
+    height: 16%;
+    top: 36%;
+  }
+  
+  .categories-container.main-layout .main-page-боулы { left: 0; }
+  .categories-container.main-layout .main-page-гарниры { left: 35%; }
+  .categories-container.main-layout .main-page-поке { left: 70%; }
+  
+  .categories-container.main-layout .main-page-другое {
+    width: 100%;
+    height: 16%;
+    top: 54%;
+    left: 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .categories-container.main-layout {
+    height: 800px;
+  }
+  
+  .categories-container.main-layout .category-button {
+    width: 100% !important;
+    height: 9% !important;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    margin-bottom: 8px;
+  }
+  
+  .categories-container.main-layout {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    padding: 10px;
+  }
+}
+
+.categories-container.register-layout {
+  position: relative;
+  height: 800px;
+}
+
+.categories-container.register-layout .main-category {
+  position: absolute;
+  width: 390px;
+  height: 160px;
+  top: 241px;
+  left: 133px;
+}
+
+.categories-container.register-layout .sub-category {
+  position: absolute;
+  width: 190px;
+  height: 190px;
+}
+
+.categories-container.register-layout .sub-category:nth-child(2) { top: 211px; left: 539px; }
+.categories-container.register-layout .sub-category:nth-child(3) { top: 414px; left: 133px; }
+.categories-container.register-layout .sub-category:nth-child(4) { top: 414px; left: 336px; }
+.categories-container.register-layout .sub-category:nth-child(5) { top: 414px; left: 539px; }
+.categories-container.register-layout .sub-category:nth-child(6) { top: 617px; left: 133px; }
+.categories-container.register-layout .sub-category:nth-child(7) { top: 617px; left: 336px; }
+.categories-container.register-layout .sub-category:nth-child(8) { top: 617px; left: 539px; }
+
+.categories-container.catalog-layout {
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+.categories-container.catalog-layout .main-category {
+  grid-column: span 2;
+  height: 250px;
+}
+
+.categories-container.catalog-layout .sub-category {
+  height: 180px;
+}
+
+.category-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.category-button:hover {
+  transform: scale(1.03);
+}
+
+.category-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: none;
+  border-radius: 8px;
+}
 
 .catalog-layout .category-button {
-    height: 60px;
+  height: 60px;
 }
 
 .catalog-layout .category-button span {
-    font-size: 14px;
-    color: #333;
-    text-shadow: none;
+  font-size: 14px;
+  color: #333;
+  text-shadow: none;
 }
 
 .catalog-layout .main-category {
-    grid-column: span 1;
+  grid-column: span 1;
 }

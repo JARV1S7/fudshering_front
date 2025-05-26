@@ -35,14 +35,9 @@ const AuthPage = ({ isLogin = false }) => {
           const response = await fakeAuthAPI(formData.email, formData.password);
           
           if (response.success) {
-            // 1. Сохраняем токен/данные пользователя
             localStorage.setItem('authToken', response.token);
-            
-            // 2. Перенаправляем на главную
             navigate('/');
             
-            // 3. Можно обновить состояние приложения (через Context/Redux)
-            // updateAuthState(true);
           } else {
             setError(response.message || 'Неверные учетные данные');
           }
@@ -127,7 +122,6 @@ const AuthPage = ({ isLogin = false }) => {
 
 // Заглушка для API аутентификации
 async function fakeAuthAPI(email, password) {
-    // В реальном приложении здесь будет fetch/axios запрос
     return new Promise(resolve => {
       setTimeout(() => {
         if (email === 'user@example.com' && password === 'password123') {

@@ -1,0 +1,193 @@
+.checkoutStage {
+  width: 100%;
+}
+
+.deliveryBlock,
+.recipientBlock,
+.paymentBlock {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  cursor: pointer;
+}
+
+.deliveryBlock {
+  height: 46px;
+}
+
+.recipientBlock {
+  height: 100px;
+  opacity: 0.4;
+}
+
+.paymentBlock {
+  height: 46px;
+  opacity: 0.4;
+}
+
+.recipientBlock.active,
+.paymentBlock.active {
+  opacity: 1;
+  color: #000;
+}
+
+.deliveryHeader,
+.recipientInfo,
+.paymentInfo {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.deliveryTitle,
+.recipientTitle,
+.paymentTitle {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 110%;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.deliveryTitle svg,
+.recipientTitle svg,
+.paymentTitle svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.deliverySubtitle,
+.recipientName,
+.recipientPhone,
+.recipientEmail,
+.paymentMethod {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 110%;
+  opacity: 0.4;
+  margin-left: 14px;
+  margin-top: 4px;
+}
+
+.recipientDetails {
+  display: flex;
+  flex-direction: column;
+  margin-left: 14px;
+}
+
+.recipientDetails div {
+  margin-left: 0;
+  margin-top: 4px;
+}
+
+.recipientBlock.active .recipientTitle,
+.recipientBlock.active .recipientName,
+.recipientBlock.active .recipientPhone,
+.recipientBlock.active .recipientEmail,
+.paymentBlock.active .paymentTitle,
+.paymentBlock.active .paymentMethod {
+  opacity: 1;
+}
+
+.deliveryArrow,
+.recipientArrow,
+.paymentArrow {
+  font-size: 20px;
+}
+
+.promoBlock {
+  margin-top: 32px;
+}
+
+.promoInput {
+  position: relative;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.promoField {
+  width: 100%;
+  padding: 10px 40px 16px 0;
+  border: none;
+  border-bottom: 2px solid #ddd;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 4%;
+  opacity: 0.4;
+}
+
+.promoButton {
+  position: absolute;
+  right: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.promoButton:hover svg g {
+  opacity: 0.8;
+}
+
+.promoButton:active svg g {
+  opacity: 1;
+}
+
+.promoField:focus {
+  outline: none;
+  opacity: 1;
+  border-bottom-color: #000;
+}
+
+.priceSummary {
+  margin-top: 24px;
+}
+
+.priceRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.priceRow.totalPrice {
+  font-size: 27px;
+  font-weight: 500;
+  color: #000;
+  margin-top: 16px;
+}
+
+@media (max-width: 768px) {
+  .deliverySubtitle,
+  .recipientName,
+  .recipientPhone,
+  .recipientEmail,
+  .paymentMethod {
+    font-size: 14px;
+  }
+  
+  .promoField {
+    font-size: 16px;
+  }
+  
+  .priceRow {
+    font-size: 16px;
+  }
+  
+  .priceRow.totalPrice {
+    font-size: 22px;
+  }
+}

@@ -1,0 +1,187 @@
+.paymentStep {
+  width: 100%;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+.cardPreview {
+  width: 390px;
+  height: 230px;
+  border: 2.5px solid #E0E0E0;
+  border-radius: 16px;
+  margin: 0 auto 24px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.cardActive {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cardEmpty {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+}
+
+.cardPlaceholder {
+  width: 90px;
+  height: 90px;
+  border-radius: 45px;
+  background: #F5F5F5;
+  margin-bottom: 16px;
+}
+
+.cardBankLogo {
+  width: 90px;
+  height: 90px;
+  border-radius: 45px;
+  background: #F5F5F5;
+  padding: 11.25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bankLogo {
+  width: 60px;
+  height: 60px;
+  background: #DDD;
+  border-radius: 30px;
+}
+
+.cardNumber {
+  width: 94.47px;
+  height: 41px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cardNumber span {
+  font-family: 'SF Pro Text', sans-serif;
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 41px;
+  letter-spacing: 0%;
+}
+
+.cardType {
+  width: 60.22px;
+  height: 17.25px;
+  opacity: 0.4;
+  align-self: flex-end;
+}
+
+.paymentOptions {
+  width: 390px;
+  margin: 0 auto;
+}
+
+.optionsTitle {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+
+.paymentOption {
+  width: 100%;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+  cursor: pointer;
+  padding: 0 12px;
+  border-radius: 8px;
+}
+
+.paymentOption:hover {
+  background: #F5F5F5;
+}
+
+.paymentOption.selected {
+  background: #F0F0F0;
+}
+
+.optionRadio {
+  width: 24px;
+  height: 24px;
+  border: 1px solid #999;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.radioChecked {
+  width: 14px;
+  height: 14px;
+  background: #000;
+  border-radius: 7px;
+}
+
+.optionIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 18px;
+  background: #F5F5F5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 8px;
+}
+
+.bankIcon {
+  width: 24px;
+  height: 24px;
+  background: #DDD;
+  border-radius: 12px;
+}
+
+.sbpIcon {
+  width: 24px;
+  height: 24px;
+  background: #1E88E5;
+  border-radius: 12px;
+}
+
+.optionText {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  flex-grow: 1;
+}
+
+.plusIcon {
+  font-size: 20px;
+  line-height: 24px;
+  color: #000;
+}
+
+@media (max-width: 480px) {
+  .cardPreview,
+  .paymentOptions {
+    width: 100%;
+  }
+  
+  .cardNumber span {
+    font-size: 24px;
+  }
+  
+  .optionText {
+    font-size: 18px;
+  }
+}

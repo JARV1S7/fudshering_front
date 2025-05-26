@@ -1,0 +1,115 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Inter', sans-serif;
+  gap: 20px;
+  max-width: 1920px;
+  margin: 0 82px 0 93px;
+  padding: 20px;
+}
+
+.items {
+  flex: 1;
+}
+
+.title {
+  font-weight: 600;
+  margin-top: 16px;
+  margin-bottom: 30px;
+  font-size: 36px;
+}
+
+.empty {
+  font-size: 18px;
+  color: #666;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.summary {
+  width: 100%;
+  max-width: 653px;
+  height: auto;
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  margin-left: auto;
+}
+
+.summaryContent {
+  width: 100%;
+  max-width: 590px;
+  margin: 0 auto;
+}
+
+.summaryTitle {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 100%;
+  margin-bottom: 30px;
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.summaryRow.total {
+  margin-top: 30px;
+  font-weight: 500;
+  font-size: 27px;
+  line-height: 100%;
+}
+
+.summaryValue {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 100%;
+  text-align: right;
+}
+
+.savings {
+  color: green;
+}
+
+.checkoutButton {
+  width: 100%;
+  max-width: 390px;
+  height: 62px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 18px;
+  cursor: pointer;
+  margin-top: 30px;
+  padding: 12px 113px;
+  transition: background 0.3s;
+}
+
+.checkoutButton:hover {
+  background: #0056b3;
+}
+
+@media (min-width: 768px) {
+  .container {
+    flex-direction: row;
+  }
+  
+  .summary {
+    position: sticky;
+    top: 20px;
+  }
+}
+
+@media (max-width: 767px) {
+  .summary {
+    margin-top: 20px;
+  }
+  
+  .checkoutButton {
+    padding: 12px 20px;
+  }
+}

@@ -1,0 +1,198 @@
+.shop-page {
+  font-family: 'Inter', sans-serif;
+  max-width: 1624px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.loading, .error {
+  text-align: center;
+  padding: 40px;
+  font-size: 18px;
+}
+
+.shop-header {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.back-button {
+  position: absolute;
+  background: #ffffff;
+  border: 3px solid #000000;
+  border-radius: 50px;
+  cursor: pointer;
+  padding: 8px;
+  transition: transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  left: -40px;
+  top: -40px;
+  z-index: 2000;
+}
+
+.back-button:hover {
+  transform: translateX(-3px);
+}
+
+.back-button svg {
+  width: 32px;
+  height: 30px;
+}
+
+.shop-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background: white;
+}
+
+.shop-image-container {
+  width: 100px;
+  height: 100px;
+}
+
+.shop-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.shop-info {
+  flex-grow: 1;
+}
+
+.shop-name {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #2E2E2E;
+}
+
+.orders-count {
+  margin: 5px 0 0;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.shop-products h2 {
+  font-weight: 600;
+  font-size: 32px;
+  color: #2E2E2E;
+  margin-bottom: 20px;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(206px, 1fr));
+  gap: 26px;
+  padding-bottom: 20px;
+}
+
+.no-products {
+  text-align: center;
+  padding: 40px;
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 768px) {
+  .shop-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.shop-card-wrapper {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto 0 0;
+}
+
+.shop-card-wrapper .restaurant-card-container {
+  width: 100%;
+  min-width: 100%;
+  margin-right: 0;
+}
+
+.shop-card-wrapper .restaurant-card {
+  height: auto;
+  min-height: 120px;
+  padding: 20px;
+}
+
+.shop-card-wrapper .restaurant-image {
+  width: 80px;
+  height: 80px;
+  min-width: 80px;
+  max-width: 80px;
+}
+
+.shop-card-wrapper .restaurant-name {
+  font-size: 24px;
+  white-space: normal;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.shop-card-wrapper .orders-count {
+  font-size: 20px;
+  margin: 0;
+}
+
+.shop-card-wrapper .favorite-button {
+  top: 20px;
+  right: 20px;
+  width: 28px;
+  height: 24px;
+}
+
+@media (max-width: 768px) {
+  .shop-card-wrapper {
+    max-width: 100%;
+  }
+  
+  .shop-card-wrapper .restaurant-card {
+    padding: 15px;
+  }
+  
+  .shop-card-wrapper .restaurant-image {
+    width: 60px;
+    height: 60px;
+    min-width: 60px;
+    max-width: 60px;
+  }
+  
+  .shop-card-wrapper .restaurant-name {
+    font-size: 20px;
+  }
+  
+  .shop-card-wrapper .orders-count {
+    font-size: 18px;
+    margin: 0;
+  }
+}

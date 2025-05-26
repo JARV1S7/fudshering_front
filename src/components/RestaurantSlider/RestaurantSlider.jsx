@@ -1,45 +1,68 @@
-import React from 'react';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import React, { useRef, useState, useEffect } from 'react';
+import RestaurantCard from '../RestaurantCard/RestaurantCard';
 import './RestaurantSlider.css';
-
-const restaurants = [
-  { id: 1, name: 'Вилка ложка', orders: 32, image: '/image/fork-spoon.png' },
-  { id: 2, name: 'А ТЫ ГДЕ?', orders: 1, image: '/image/where.png' },
-  { id: 3, name: 'Хлебничная', orders: 0, image: '/image/bakery.png' },
-];
+import arrowRight from '/image/arrow-right.svg';
+import arrowLeft from '/image/arrow-left.svg';
+import { restaurants } from '../../data/restaurants';
 
 const RestaurantSlider = () => {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 2,
-    slidesToScroll: 1,
-    responsive: [
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 1,
-        }
-      }
-    ]
+  const sliderRef = useRef(null);
+  const [showLeftButton, setShowLeftButton] = useState(false);
+  const [showRightButton, setShowRightButton] = useState(true);
+
+  const checkScrollPosition = () => {
+    if (sliderRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = sliderRef.current;
+      setShowLeftButton(scrollLeft > 0);
+      setShowRightButton(scrollLeft < scrollWidth - clientWidth - 1);
+    }
+  };
+
+  useEffect(() => {
+    const slider = sliderRef.current;
+    slider.addEventListener('scroll', checkScrollPosition);
+    return () => slider.removeEventListener('scroll', checkScrollPosition);
+  }, []);
+
+  const scroll = (direction) => {
+    if (sliderRef.current) {
+      const scrollAmount = direction === 'right' ? 550 : -550;
+      sliderRef.current.scrollBy({
+        left: scrollAmount,
+        behavior: 'smooth'
+      });
+    }
   };
 
   return (
-    <Slider {...settings} className="restaurant-slider">
-      {restaurants.map(restaurant => (
-        <div key={restaurant.id} className="restaurant-card">
-          <img src={restaurant.image} alt={restaurant.name} className="restaurant-image" />
-          <div className="restaurant-info">
-            <h3>{restaurant.name}</h3>
-            <p>Заказов сделано | {restaurant.orders}</p>
-          </div>
+    <div className="restaurants-section">
+      <h2>Заведения</h2>
+      <div className="slider-container">
+        {showLeftButton && (
+          <button className="scroll-button left" onClick={() => scroll('left')}>
+            <img src={arrowLeft} alt="Прокрутить влево" />
+          </button>
+        )}
+        <div className="restaurant-slider" ref={sliderRef}>
+          {restaurants.map(restaurant => (
+            <RestaurantCard 
+              key={restaurant.id}
+              id={restaurant.id}
+              name={restaurant.name}
+              ordersCount={restaurant.ordersCount}
+              imageUrl={restaurant.imageUrl}
+            />
+          ))}
         </div>
-      ))}
-    </Slider>
+        {showRightButton && (
+          <button className="scroll-button right" onClick={() => scroll('right')}>
+            <img src={arrowRight} alt="Прокрутить вправо" />
+          </button>
+        )}
+      </div>
+    </div>
   );
 };
 
 export default RestaurantSlider;
+export { restaurants };

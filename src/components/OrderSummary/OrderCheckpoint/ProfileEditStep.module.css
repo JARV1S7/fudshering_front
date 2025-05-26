@@ -1,0 +1,86 @@
+.profileEditStep {
+  width: 100%;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+.sectionTitle {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 26px;
+  letter-spacing: 0px;
+  margin-bottom: 28px;
+  width: 199px;
+  height: 26px;
+}
+
+.inputField {
+  position: relative;
+  width: 83%;
+  height: 75px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  background: #F5F5F5;
+  padding: 9px 23px;
+}
+
+.inputLabel {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 20px;
+  letter-spacing: 0px;
+  color: #666;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 26px;
+  letter-spacing: 1%;
+  outline: none;
+  padding: 0;
+}
+
+.input::placeholder {
+  color: #999;
+}
+
+.nextButton {
+  width: 100%;
+  height: 58px;
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 24px;
+}
+
+.nextButton:hover {
+  background: #333;
+}
+
+@media (max-width: 768px) {
+  .inputField {
+    width: 100%;
+  }
+  
+  .sectionTitle {
+    font-size: 20px;
+  }
+  
+  .input {
+    font-size: 20px;
+  }
+}

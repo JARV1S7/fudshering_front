@@ -1,0 +1,208 @@
+.restaurant-card-container {
+  position: relative;
+  width: calc(1624px / 3.117);
+  min-width: 300px;
+  height: 100%;
+  flex-shrink: 0;
+  margin-right: 16px;
+}
+
+.restaurant-card {
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  box-sizing: border-box;
+  background: white;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.restaurant-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.restaurant-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  height: 100%;
+}
+
+.restaurant-image {
+  width: 100;
+  height: 100%;
+  max-width: 120px;
+  min-width: 60px;
+  border-radius: 4px;
+  object-fit: cover;
+  aspect-ratio: 1/1;
+}
+
+.restaurant-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  width: 65%;
+  height: 100%;
+}
+
+.restaurant-card-link{
+  text-decoration: none;
+}
+
+.restaurant-name {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: clamp(16px, 1.5vw, 24px);
+  line-height: 110%;
+  margin: 0;
+  color: #2E2E2E;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.orders-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.orders-text {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: clamp(12px, 1.1vw, 18px);
+  line-height: 100%;
+  opacity: 0.8;
+  color: #2E2E2E;
+}
+
+.divider {
+  width: 1px;
+  height: 16px;
+  background-color: #2E2E2E;
+  opacity: 0.4;
+}
+
+.orders-count {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: clamp(16px, 1.5vw, 24px);
+  line-height: 100%;
+  color: #2E2E2E;
+}
+
+.favorite-button {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  width: 24px;
+  height: 21px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 2;
+}
+
+.favorite-button img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+}
+
+.favorite-button:hover img {
+  transform: scale(1.15);
+}
+
+@media (max-width: 1200px) {
+  .restaurant-slider {
+    height: 130px;
+  }
+  
+  .restaurant-card-container {
+    min-width: 280px;
+  }
+}
+
+@media (max-width: 992px) {
+  .restaurant-slider {
+    height: 120px;
+  }
+  
+  .restaurant-card-container {
+    min-width: 260px;
+  }
+  
+  .restaurant-content {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .restaurant-slider {
+    height: 110px;
+  }
+  
+  .restaurant-card-container {
+    min-width: 240px;
+    margin-right: 12px;
+  }
+  
+  .restaurant-card {
+    padding: 12px 15px;
+  }
+  
+  .restaurant-name {
+    font-size: 18px;
+  }
+  
+  .orders-text {
+    font-size: 14px;
+  }
+  
+  .orders-count {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 576px) {
+  .restaurant-slider {
+    height: 100px;
+  }
+  
+  .restaurant-card-container {
+    min-width: 200px;
+  }
+  
+  .restaurant-image {
+    min-width: 50px;
+  }
+  
+  .restaurant-name {
+    font-size: 16px;
+  }
+  
+  .orders-text {
+    font-size: 12px;
+  }
+  
+  .orders-count {
+    font-size: 16px;
+  }
+  
+  .favorite-button {
+    width: 20px;
+    height: 18px;
+    top: 10px;
+    right: 10px;
+  }
+}

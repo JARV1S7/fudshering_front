@@ -1,22 +1,63 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import styles from './CartItem.module.css';
 
-export default function CartItem({ item, onRemove, onQuantityChange }) {
-    return (
-      <div className="cart-item">
-        <img src={item.image} alt={item.name} />
-        <div className="item-info">
-          <h3>{item.name}</h3>
-          <p>{item.price} ₽</p>
+const CartItem = ({ 
+  product, 
+  onRemove 
+}) => {
+  const savings = product.oldPrice - product.price;
+
+  return (
+    <div className={styles.cartItem}>
+      <img 
+        src={product.image} 
+        alt={product.name} 
+        className={styles.productImage}
+      />
+      
+      <div className={styles.topRow}>
+        <div className={styles.productInfo}>
+          <h3 className={styles.productName}>{product.name}</h3>
         </div>
-        <div className="item-controls">
-          <input 
-            type="number" 
-            min="1" 
-            value={item.quantity}
-            onChange={(e) => onQuantityChange(item.id, +e.target.value)}
-          />
-          <button onClick={() => onRemove(item.id)}>Удалить</button>
+        <button 
+          className={styles.menuButton}
+          onClick={() => onRemove(product.id)}
+        >
+          ⋮
+        </button>
+      </div>
+      
+      <div className={styles.bottomRow}>
+        <div className={styles.quantityValue}>x {product.quantity}</div>
+        <div className={styles.priceBlock}>
+          <div className={styles.savingsText}>
+            Сэкономлено: {savings.toLocaleString()} ₽
+          </div>
+          <div className={styles.priceSum}>
+            <span className={styles.oldPrice}>
+              {product.oldPrice.toLocaleString()} ₽
+            </span>
+            <span className={styles.currentPrice}>
+              {product.price.toLocaleString()} ₽
+            </span>
+          </div>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
+};
+
+CartItem.propTypes = {
+  product: PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    name: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    oldPrice: PropTypes.number.isRequired,
+    quantity: PropTypes.number.isRequired,
+  }).isRequired,
+  onRemove: PropTypes.func.isRequired,
+};
+
+export default CartItem;
