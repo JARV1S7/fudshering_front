@@ -1,0 +1,187 @@
+.pageContainer {
+  display: flex;
+  min-height: 100vh;
+  margin: 0 80px;
+}
+
+.ordersList {
+  flex: 1;
+  padding: 30px;
+  background-color: white;
+}
+
+.pageTitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  color: #2E2E2E;
+}
+
+.OrderBack{
+  display: flex;
+  width: 42.5%;
+  height: auto;
+  background: #B2DDFF;
+  background-image: url(/public/image/cart-baground.png);
+  background-size: cover;
+  background-position: center;
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  align-items: center;
+  justify-content: center;
+}
+
+.orderDetails {
+  flex: 1;
+  padding: 60px;
+  position: relative;
+  width: 85%;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.detailsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.detailsHeader h2 {
+  font-family: 'Inter', sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: #2E2E2E;
+  margin: 0;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+  color: #8B8B8B;
+}
+
+.customerInfo {
+  margin-bottom: 30px;
+}
+
+.customerInfo h3 {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0 0 10px 0;
+  color: #2E2E2E;
+}
+
+.statusBadge {
+  display: inline-block;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-family: 'SF Pro Text', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.orderItems {
+  margin-bottom: 30px;
+}
+
+.orderItems h4 {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 0 15px 0;
+  color: #2E2E2E;
+}
+
+.orderItems ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.orderItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+}
+
+.orderSummary {
+  background-color: #f8f8f8;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+}
+
+.summaryRowTotal {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #e0e0e0;
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.actionButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.actionButton {
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  background-color: #2E2E2E;
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.actionButton:hover {
+  background-color: #1E1E1E;
+}
+
+/* Стили для статусов (должны совпадать с OrderCard.module.css) */
+.statusReady {
+  color: #00A410;
+  background-color: rgba(0, 164, 16, 0.1);
+}
+
+.statusReceived {
+  color: #3EA354;
+  background-color: rgba(62, 163, 84, 0.1);
+}
+
+.statusPreparing {
+  color: #FFB133;
+  background-color: rgba(255, 177, 51, 0.1);
+}
+
+.statusProcessed {
+  color: #FA5801;
+  background-color: rgba(250, 88, 1, 0.1);
+}

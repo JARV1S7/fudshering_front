@@ -1,0 +1,98 @@
+.orderCard {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 390px;
+  height: 112px;
+  background: #FFFFFF;
+  padding: 0 0 16px;
+  margin-bottom: 17px;
+  border-bottom: 1px solid #00000020;
+}
+
+.orderImage {
+  width: 112px;
+  height: 112px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.orderInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.orderNumber {
+  width: 191px;
+  height: 20px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 100%;
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.orderStatus {
+  width: 191px;
+  height: 16px;
+  font-family: 'SF Pro Text', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 100%;
+  margin: 0 0 42px;
+}
+
+.statusReady {
+  color: var(--status-ready);
+}
+
+.statusReceived {
+  color: var(--status-received);
+}
+
+.statusPreparing {
+  color: var(--status-preparing);
+}
+
+.statusProcessed {
+  color: var(--status-processed);
+}
+
+.orderTime {
+  width: 124px;
+  height: 28px;
+  opacity: 0.6;
+  font-family: 'SF Pro Text', sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 100%;
+  margin: 0;
+  color: var(--text-secondary);
+  align-items: center;
+  display: flex;
+  gap: 6px;
+}
+
+.orderDate {
+  width: 139px;
+  height: 28px;
+  opacity: 0.6;
+  font-family: 'SF Pro Text', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 100%;
+  margin: 0;
+  color: var(--text-secondary);
+  align-items: center;
+  display: flex;
+  gap: 6px;
+}
+
+.orderArrow {
+  opacity: 0.3;
+  color: var(--text-primary);
+}
+

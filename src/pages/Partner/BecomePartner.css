@@ -1,0 +1,367 @@
+.become-container {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  font-family: 'Inter', sans-serif;
+  background-image: url('image/becomepartner.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.form-section {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 45vw;
+  height: 110vh;
+  min-width: 350px; /* Минимальная ширина */
+  max-width: 1000px; /* Максимальная ширина */
+  min-height: 500px;
+  padding: 30px;
+  background: white;
+  margin: 55px 42px 0 62px;
+  border-radius: 30px;
+  border: 1px;
+  box-sizing: border-box;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.skip-button {
+  position: absolute;
+  width: 122px;
+  height: 36px;
+  top: 27px;
+  margin-left: 77%;
+  background: #000000;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.skip-button:hover {
+  background: #333;
+}
+
+.become-header {
+  position: absolute;
+  width: 60%;
+  margin-bottom: 10px;
+  line-height: 100%;
+  align-self: stretch;
+  top: 131px;
+}
+
+.become-header h2 {
+  font-size: 36px;
+  margin-bottom: 8px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  line-height: 110%;
+}
+
+.become-header p {
+  color: #666;
+  font-size: 18px;
+  line-height: 140%;
+  font-weight: 400;
+  height: 50px;
+  padding-bottom: 40px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid #00000020;
+}
+
+.become-form {
+  position: absolute;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  top: 330px;
+}
+
+.become-form h3 {
+  font-family: Inter;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 100%;
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+.become-form-3 {
+  position: absolute;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 110px;
+}
+
+.become-form-3 h3 {
+  font-family: Inter;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 100%;
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+.become-form h4 {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  font-family: Inter;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 100%;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group input {
+  width: 100%;
+  height: 20px;
+  font-size: 20px;
+  font-weight: 400;
+  border-style: none;
+  border: none;
+  border-bottom: 2px solid #00000020;
+  line-height: 100%;
+  padding: 10px 0;
+  outline: none;
+}
+
+.description-group {
+  margin-bottom: 30px;
+  margin-top: 5px;
+}
+
+.description-group textarea {
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+  font-size: 20px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.4);
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  transition: height 0.2s ease-out;
+  line-height: 1.5;
+}
+
+.description-group textarea:focus {
+  border-bottom-color: rgba(0, 0, 0, 0.4);
+}
+
+.logo-upload {
+  margin-bottom: 40px;
+}
+
+.logo-upload label {
+  display: block;
+  margin-bottom: 15px;
+  font-weight: 600;
+  font-size: 24px;
+}
+
+.logo-preview-container {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.logo-preview {
+  width: 80px;
+  height: 80px;
+  border: 1px dashed #ccc;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.logo-upload-button-container {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #00000020;
+}
+
+.logo-upload-button {
+  width: 38.26%;
+  aspect-ratio: 1 / 1;
+  border: none;
+  border-radius: 12px;
+  background: #EDEDED;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+  transition: border-color 0.3s;
+}
+
+.logo-upload-button:hover {
+  border-color: #999;
+}
+
+.logo-preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #f5f5f5;
+}
+
+.logo-upload-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+}
+
+.logo-upload-placeholder span {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.logo-upload-placeholder p {
+  margin: 0;
+  font-size: 16px;
+}
+
+.empty-logo {
+  font-size: 24px;
+  color: #ccc;
+}
+
+.logo-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.upload-button {
+  display: inline-block;
+  padding: 10px 15px;
+  background: #f0f0f0;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.upload-button:hover {
+  background: #e0e0e0;
+}
+
+.map-container {
+  margin: 20px 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  aspect-ratio: 0.808 / 1;
+}
+
+.map-instruction {
+  text-align: center;
+  color: #666;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.location-confirmation {
+  text-align: center;
+  margin: 10px 0;
+  padding: 8px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  color: #333;
+}
+
+.location-logo-preview {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.location-logo-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.continue-button {
+  width: 100%;
+  height: 62px;
+  background: #000;
+  font-family: 'SF Pro Text', sans-serif;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 30px;
+}
+
+.continue-button:hover {
+  background: #333;
+}
+
+@media (max-width: 768px) {
+  .form-section {
+    width: 90vw;
+    height: auto;
+    min-height: 70vh;
+    padding: 20px;
+  }
+  
+  .become-form,
+  .become-form-3 {
+    width: 80%;
+    position: static;
+    margin-top: 80px;
+  }
+  
+  .become-header {
+    position: static;
+    width: 100%;
+    margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-section {
+    width: 95vw;
+    padding: 15px;
+  }
+  
+  .become-header h2 {
+    font-size: 28px;
+  }
+  
+  .become-header p {
+    font-size: 16px;
+  }
+  
+  .continue-button {
+    height: 50px;
+    font-size: 18px;
+  }
+}

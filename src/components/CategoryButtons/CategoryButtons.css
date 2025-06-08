@@ -16,9 +16,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  border: none;
   border-radius: 8px;
   background-size: cover;
-  background-position: center;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -175,13 +175,25 @@
   }
 }
 
+/* Стили для страницы авторизации */
 .categories-container.register-layout {
   position: relative;
   height: 800px;
 }
 
-.categories-container.register-layout .main-category {
+.categories-container.register-layout .category-button {
   position: absolute;
+  background-size: cover;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.categories-container.register-layout .category-button:hover {
+  transform: scale(1.03);
+}
+
+.categories-container.register-layout .main-category {
   width: 390px;
   height: 160px;
   top: 241px;
@@ -189,7 +201,6 @@
 }
 
 .categories-container.register-layout .sub-category {
-  position: absolute;
   width: 190px;
   height: 190px;
 }
@@ -221,7 +232,6 @@
   justify-content: center;
   border-radius: 8px;
   background-size: cover;
-  background-position: center;
   position: relative;
   cursor: pointer;
   transition: transform 0.3s ease;

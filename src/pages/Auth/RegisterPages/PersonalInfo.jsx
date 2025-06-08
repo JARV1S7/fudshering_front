@@ -30,7 +30,9 @@ const PersonalInfo = () => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setFormData(prev => ({ ...prev, photo: reader.result }));
+        const photoData = reader.result;
+        setFormData(prev => ({ ...prev, photo: photoData }));
+        localStorage.setItem('profilePhoto', photoData);
       };
       reader.readAsDataURL(file);
     }
@@ -39,7 +41,7 @@ const PersonalInfo = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Личная информация:', formData);
-    navigate('/become-partner');
+    navigate('/');
   };
 
   return (

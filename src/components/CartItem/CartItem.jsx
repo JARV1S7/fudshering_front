@@ -2,17 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './CartItem.module.css';
 
-const CartItem = ({ 
-  product, 
-  onRemove 
-}) => {
+const CartItem = ({ product, onIncrease, onDecrease, onRemove }) => {
   const savings = product.oldPrice - product.price;
 
   return (
     <div className={styles.cartItem}>
-      <img 
-        src={product.image} 
-        alt={product.name} 
+      <img
+        src={product.image}
+        alt={product.name}
         className={styles.productImage}
       />
       
@@ -20,16 +17,30 @@ const CartItem = ({
         <div className={styles.productInfo}>
           <h3 className={styles.productName}>{product.name}</h3>
         </div>
-        <button 
+        <button
           className={styles.menuButton}
-          onClick={() => onRemove(product.id)}
+          onClick={onRemove}
         >
-          ⋮
+          Удалить
         </button>
       </div>
       
       <div className={styles.bottomRow}>
-        <div className={styles.quantityValue}>x {product.quantity}</div>
+        <div className={styles.quantityControls}>
+          <button 
+            className={styles.quantityButton} 
+            onClick={onDecrease}
+          >
+            -
+          </button>
+          <span className={styles.quantityValue}>{product.quantity}</span>
+          <button 
+            className={styles.quantityButton} 
+            onClick={onIncrease}
+          >
+            +
+          </button>
+        </div>
         <div className={styles.priceBlock}>
           <div className={styles.savingsText}>
             Сэкономлено: {savings.toLocaleString()} ₽
@@ -39,7 +50,7 @@ const CartItem = ({
               {product.oldPrice.toLocaleString()} ₽
             </span>
             <span className={styles.currentPrice}>
-              {product.price.toLocaleString()} ₽
+              {(product.price * product.quantity).toLocaleString()} ₽
             </span>
           </div>
         </div>
@@ -57,6 +68,8 @@ CartItem.propTypes = {
     oldPrice: PropTypes.number.isRequired,
     quantity: PropTypes.number.isRequired,
   }).isRequired,
+  onIncrease: PropTypes.func.isRequired,
+  onDecrease: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
 };
 

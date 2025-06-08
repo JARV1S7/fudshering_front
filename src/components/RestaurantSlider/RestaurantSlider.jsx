@@ -4,11 +4,13 @@ import './RestaurantSlider.css';
 import arrowRight from '/image/arrow-right.svg';
 import arrowLeft from '/image/arrow-left.svg';
 import { restaurants } from '../../data/restaurants';
+import { useFavorites } from '../../contexts/FavoritesContext';
 
 const RestaurantSlider = () => {
   const sliderRef = useRef(null);
   const [showLeftButton, setShowLeftButton] = useState(false);
   const [showRightButton, setShowRightButton] = useState(true);
+  const { favorites, toggleFavorite } = useFavorites();
 
   const checkScrollPosition = () => {
     if (sliderRef.current) {
@@ -51,6 +53,8 @@ const RestaurantSlider = () => {
               name={restaurant.name}
               ordersCount={restaurant.ordersCount}
               imageUrl={restaurant.imageUrl}
+              isFavorite={favorites.includes(restaurant.id)}
+              onToggleFavorite={toggleFavorite}
             />
           ))}
         </div>

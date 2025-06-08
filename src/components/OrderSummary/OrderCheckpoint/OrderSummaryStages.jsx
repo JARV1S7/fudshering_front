@@ -1,9 +1,10 @@
 import React from 'react';
 import styles from './OrderSummaryStyles.module.css';
 import checkoutStyles from './CheckoutStagesStyles.module.css';
-import DeliveryAddressStep from './DeliveryStep';
-import ProfileEditStep from './ProfileEditStep';
-import PaymentStep from './PaymentStep';
+import DeliveryAddressStep from './delivery/DeliveryStep';
+import ProfileEditStep from './profile/ProfileEditStep';
+import PaymentStep from './pay/PaymentStep';
+import OrderConfirmation from './OrderConfirm';
 
 
 const OrderSummaryStages = ({
@@ -18,7 +19,9 @@ const OrderSummaryStages = ({
   handleInputChange,
   setContactInfo,
   setPaymentMethod,
-  onNext
+  onNext,
+  orderNumber,
+  onReturnToShop
 }) => {
   return (
     <>
@@ -136,13 +139,13 @@ const OrderSummaryStages = ({
 
       {checkoutStage === 2 && (
         <DeliveryAddressStep 
-        deliveryMethod={deliveryMethod}
-        setDeliveryMethod={setDeliveryMethod}
-        contactInfo={contactInfo}
-        setContactInfo={setContactInfo}
-        onNext={onNext}
+          deliveryMethod={deliveryMethod}
+          setDeliveryMethod={setDeliveryMethod}
+          contactInfo={contactInfo}
+          setContactInfo={setContactInfo}
+          onNext={onNext}
         />
-        )}
+      )}
 
       {checkoutStage === 3 && (
         <ProfileEditStep 
@@ -157,6 +160,13 @@ const OrderSummaryStages = ({
           paymentMethod={paymentMethod}
           setPaymentMethod={setPaymentMethod}
           onNext={onNext}
+        />
+      )}
+
+      {checkoutStage === 5 && (
+        <OrderConfirmation 
+          orderNumber={orderNumber}
+          onClose={onReturnToShop}
         />
       )}
     </>

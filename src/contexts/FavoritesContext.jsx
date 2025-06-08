@@ -1,30 +1,38 @@
-import React from 'react';
-import { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 
-export const FavoritesContext = createContext();
+const FavoritesContext = createContext();
 
 export const FavoritesProvider = ({ children }) => {
   const [favorites, setFavorites] = useState([]);
 
-  const addToFavorites = (product) => {
-    setFavorites(prev => [...prev, product]);
-  };
+  // Загрузка избранного из localStorage при инициализации
+  useEffect(() => {
+    const savedFavorites = localStorage.getItem('favorites');
+    if (savedFavorites) {
+      setFavorites(JSON.parse(savedFavorites));
+    }
+  }, []);
 
-  const removeFromFavorites = (productId) => {
-    setFavorites(prev => prev.filter(item => item.id !== productId));
-  };
+  // Сохранение избранного в localStorage при изменении
+  useEffect(() => {
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+  }, [favorites]);
 
-  const isFavorite = (productId) => {
-    return favorites.some(item => item.id === productId);
+  const toggleFavorite = (restaurantId) => {
+    setFavorites(prev => 
+      prev.includes(restaurantId)
+        ? prev.filter(id => id !== restaurantId)
+        : [...prev, restaurantId]
+    );
   };
 
   return (
-    <FavoritesContext.Provider 
-      value={{ favorites, addToFavorites, removeFromFavorites, isFavorite }}
-    >
+    <FavoritesContext.Provider value={{ favorites, toggleFavorite }}>
       {children}
     </FavoritesContext.Provider>
   );
 };
 
-export const useFavorites = () => useContext(FavoritesContext);
+export const useFavorites = () => {
+  return useContext(FavoritesContext);
+};

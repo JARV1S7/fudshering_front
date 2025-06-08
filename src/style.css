@@ -8,3 +8,12 @@ body {
   max-width: 1200px;
   margin: 0 auto;
 }
+
+:root {
+  --text-primary: #000000;        /* Основной текст */
+  --text-secondary: #6B6B6B;      /* Вторичный текст */
+  --status-ready: #00A410;        /* Готов к выдаче */
+  --status-received: #3EA354;     /* Получен */
+  --status-preparing: #FFB133;    /* Готовится */
+  --status-processed: #FA5801;    /* Оформлен */
+}

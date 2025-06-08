@@ -7,8 +7,22 @@ import '../../components/CategoryButtons/CategoryButtons.css';
 import '../../components/RestaurantSlider/RestaurantSlider.css';
 import '../../components/ProductCard/ProductCard.css';
 import { popularProducts } from '../../data/products';
+import { productCategories } from '../../data/categories';
+import { CartProvider } from '../../contexts/CartContext';
 
 const MainPage = () => {
+  const productsByCategory = popularProducts.reduce((acc, product) => {
+    const category = productCategories.find(c => c.id === product.categoryId) || 
+                    { id: 9, name: 'Другое' };
+    if (!acc[category.id]) {
+      acc[category.id] = {
+        category,
+        products: []
+      };
+    }
+    acc[category.id].products.push(product);
+    return acc;
+  }, {});
 
   return (
     <div>
@@ -24,38 +38,16 @@ const MainPage = () => {
           </section>
           
           <section className="products-section">
-            <div>
-              <h2>Выпечка</h2>
-              <div className="products-grid">
-                {popularProducts.map(product => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
+            {Object.values(productsByCategory).map(({ category, products }) => (
+              <div key={category.id} id={category.name.toLowerCase()} className='product-list'>
+                <h2>{category.name}</h2>
+                <div className="products-grid">
+                  {products.map(product => (
+                    <ProductCard key={product.id} product={product} />
+                  ))}
+                </div>
               </div>
-            </div>
-            <div className='product-list'>
-              <h2>Десерты</h2>
-              <div className="products-grid">
-                {popularProducts.map(product => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
-            </div>
-            <div className='product-list'>
-              <h2>Заморозки</h2>
-              <div className="products-grid">
-                {popularProducts.map(product => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
-            </div>
-            <div className='product-list'>
-              <h2>Салаты</h2>
-              <div className="products-grid">
-                {popularProducts.map(product => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
-            </div>
+            ))}
           </section>
         </div>
       </div>
@@ -63,4 +55,8 @@ const MainPage = () => {
   );
 };
 
-export default MainPage;
+export default () => (
+  <CartProvider>
+    <MainPage />
+  </CartProvider>
+);

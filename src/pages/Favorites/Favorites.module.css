@@ -1,0 +1,33 @@
+.favoritesPage {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.favoritesPage h1 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 32px;
+  color: #2E2E2E;
+  margin-bottom: 30px;
+}
+
+.favoritesContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(45%, 1fr));
+  gap: 20px;
+}
+
+.emptyMessage {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  color: #6B6B6B;
+  text-align: center;
+  margin-top: 50px;
+}
+
+@media (max-width: 768px) {
+  .favoritesContainer {
+    grid-template-columns: 1fr;
+  }
+}

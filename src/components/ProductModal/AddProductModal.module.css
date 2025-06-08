@@ -1,0 +1,228 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.modalTitle {
+  font-size: 32px;
+  font-weight: 600;
+  margin: 0;
+  margin-bottom: 16px;
+  color: #000000;
+}
+
+/* Стили для формы добавления товара */
+.formGroup {
+  position: relative;
+  margin-bottom: 23px;
+}
+
+/* Стили для инпутов с плавающими лейблами */
+.inputWrapper {
+  position: relative;
+  margin-bottom: 5px;
+}
+
+.floatingLabel {
+  position: absolute;
+  top: 5px;
+  left: 18px;
+  background: #ffffff00;
+  padding: 0;
+  font-size: 14px;
+  color: #A7A7A7;
+  z-index: 1;
+}
+
+.formGroup select{
+  width: 100%;
+  padding: 28px 15px 13px;
+  border: none;
+  border-radius: 20px;
+  font-size: 24px;
+  box-sizing: border-box;
+  background: #EDEDED;
+}
+
+.formGroup input {
+  width: 100%;
+  padding: 32px 18px 10px;
+  border: none;
+  border-radius: 20px;
+  font-size: 24px;
+  box-sizing: border-box;
+  background: #EDEDED;
+}
+
+.formGroup input:focus,
+.formGroup select:focus {
+  outline: none;
+  border-color: #ff0606;
+}
+
+/* Стили для загрузки изображения (без плавающего лейбла) */
+.imageUploadGroup {
+  margin-top: 20px;
+  padding-left: 10px;
+}
+
+.imageUpload {
+  margin-top: 10px;
+}
+
+.imageUploadText{
+  margin: 0;
+  color: #A7A7A7;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 110%;
+  letter-spacing: 0px;
+}
+
+.uploadLabel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35%;
+  aspect-ratio: 1 / 1;
+  padding: 10px 15px;
+  background: #F0F0F0;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  font-size: 14px;
+  overflow: hidden;
+  position: relative;
+}
+
+.uploadLabel.hasImage {
+  padding: 0;
+  background: transparent;
+}
+
+.uploadLabel:hover {
+  background: #E0E0E0;
+}
+
+.uploadLabel.hasImage:hover {
+  background: transparent;
+  opacity: 0.9;
+}
+
+.imagePreview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+/* Стили кнопок */
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.cancelBtn {
+  background: #F0F0F0;
+  color: #4A4A4A;
+  font-size: 17px;
+  border: none;
+  width: 50%;
+  border-radius: 20px;
+  padding: 16px 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cancelBtn:hover {
+  background: #E0E0E0;
+}
+
+.submitBtn {
+  background: #ffe100;
+  color: rgb(0, 0, 0);
+  font-size: 17px;
+  width: 50%;
+  border: none;
+  border-radius: 20px;
+  padding: 16px 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.submitBtn:hover {
+  background: #ffe10083;
+}
+
+.priceInputWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.priceInput {
+  padding-left: 18px !important;
+  padding-right: 50px !important;
+  text-align: left;
+  letter-spacing: 0.5px; /* Для лучшего визуального восприятия */
+}
+
+.currencySymbol {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-20%);
+  font-size: 24px;
+  color: #000000;
+  pointer-events: none;
+  margin-left: 8px; /* Постоянное расстояние от последней цифры */
+}
+
+@media (max-width: 480px) {
+  .priceInput {
+    padding-right: 40px !important;
+    font-size: 20px;
+  }
+  
+  .currencySymbol {
+    font-size: 20px;
+  }
+}
+
+/* Адаптация для мобильных устройств */
+@media (max-width: 480px) {
+  .modalContent {
+    padding: 20px;
+    max-width: 90%;
+  }
+  
+  .modalTitle {
+    font-size: 24px;
+  }
+  
+  .modalActions {
+    flex-direction: column;
+  }
+  
+  .cancelBtn,
+  .submitBtn {
+    width: 100%;
+  }
+}
