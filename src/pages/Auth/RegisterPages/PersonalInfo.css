@@ -16,10 +16,10 @@
     position: relative;
     display: flex;
     justify-content: center;
-    width: 45%;
+    width: 44%;
     height: 958.6px;
     background: white;
-    margin: 55px 62px;
+    margin: 55px 90px 0 0;
     border-radius: 30px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   }

@@ -3,12 +3,20 @@ import { Link, useNavigate } from 'react-router-dom';
 import './PersonalInfo.css';
 
 const PersonalInfo = () => {
+  const navigate = useNavigate();
+
+  // Загружаем данные регистрации из localStorage
+  const savedRegistrationData = JSON.parse(localStorage.getItem('registrationData')) || {};
+
   const [formData, setFormData] = useState({
+    username: savedRegistrationData.username || '',
+    email: savedRegistrationData.email || '',
+    password: savedRegistrationData.password || '',
     lastName: '',
     firstName: '',
     middleName: '',
     city: '',
-    phone: '',
+    number: '',
     photo: null
   });
 
@@ -18,7 +26,6 @@ const PersonalInfo = () => {
   ]);
   const [showCities, setShowCities] = useState(false);
   const fileInputRef = useRef();
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,10 +45,44 @@ const PersonalInfo = () => {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Личная информация:', formData);
-    navigate('/');
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  // Создаем копию formData без поля photo
+  const { photo, ...dataToSend } = formData;
+
+  console.log('Отправляем данные регистрации с личной информацией (без фото):', dataToSend);
+
+  try {
+    const response = await fetch('http://localhost:8080/auth/sign-up', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(dataToSend)
+    });
+
+    const data = await response.json();
+
+    console.log('Ответ сервера при регистрации:', data);
+
+    if (!response.ok) {
+        throw new Error(data.message || 'Ошибка при отправке личной информации');
+      }
+
+      // Сохраняем токен для будущего использования
+      if (data.token) {
+        localStorage.setItem('authToken', data.token);
+        console.log('Токен сохранён в localStorage:', data.token);
+      }
+
+      // Очистка registrationData после успешной регистрации
+      localStorage.removeItem('registrationData');
+
+      navigate('/');
+    } catch (err) {
+      alert(err.message);
+    }
   };
 
   return (
@@ -77,15 +118,15 @@ const PersonalInfo = () => {
         </div>
         
         <div className="name-fields">
-          {['Фамилия', 'Имя', 'Отчество'].map((field) => (
+          {['lastName', 'firstName', 'middleName'].map((field) => (
             <div className="input-field" key={field}>
               <input
                 type="text"
-                name={field.toLowerCase()}
-                placeholder={field}
-                value={formData[field.toLowerCase()]}
+                name={field}
+                placeholder={field === 'middleName' ? 'Отчество' : field === 'lastName' ? 'Фамилия' : 'Имя'}
+                value={formData[field]}
                 onChange={handleChange}
-                required
+                required={field !== 'middleName'}
               />
             </div>
           ))}
@@ -112,7 +153,7 @@ const PersonalInfo = () => {
                   ))}
                 </div>
               )}
-              <img src='./image/Chevron_Left.png'/>
+              <img src='./image/Chevron_Left.png' alt="arrow"/>
             </div>
           </div>
         </div>
@@ -122,15 +163,15 @@ const PersonalInfo = () => {
             <p>Контакты</p>
             <input
               type="tel"
-              name="phone"
+              name="number"
               placeholder="Телефон"
-              value={formData.phone}
+              value={formData.number}
               onChange={handleChange}
               required
             />
           </div>
           <button type="submit" className="continue-button" onClick={handleSubmit}>
-          Продолжить
+            Продолжить
           </button>
         </div>
       </div>

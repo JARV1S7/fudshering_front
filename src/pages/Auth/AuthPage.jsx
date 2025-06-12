@@ -1,19 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import CategoryButtons from '../../components/CategoryButtons/CategoryButtons.jsx';
 import './Auth.css';
 import '../../components/CategoryButtons/CategoryButtons.css';
 
 const AuthPage = ({ isLogin = false }) => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    username: '',
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
-    const navigate = useNavigate();
-    const [error, setError] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
-
-    const [formData, setFormData] = useState({
-        email: '',
-        password: '',
-      });
+  // Очистка только токена при заходе на страницу аутентификации
+  useEffect(() => {
+    localStorage.removeItem('authToken');
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,33 +26,50 @@ const AuthPage = ({ isLogin = false }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
     setError('');
 
-    try {
-        if (!isLogin) {
-          // Логика регистрации
-          console.log('Регистрация:', formData);
-          navigate('/personal-info');
-        } else {
-          // Логика входа
-          const response = await fakeAuthAPI(formData.email, formData.password);
-          
-          if (response.success) {
-            localStorage.setItem('authToken', response.token);
-            navigate('/');
-            
-          } else {
-            setError(response.message || 'Неверные учетные данные');
-          }
-        }
+    if (isLogin) {
+      setIsLoading(true);
+      try {
+        console.log('Отправляем данные для входа:', { username: formData.username, password: formData.password });
+
+        const response = await fetch('http://localhost:8080/auth/sign-in', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            username: formData.username,
+            password: formData.password
+          }),
+        });
+        const data = await response.json();
+
+        console.log('Ответ сервера при входе:', data);
+
+        if (!response.ok) throw new Error(data.message || 'Ошибка входа');
+        localStorage.setItem('authToken', data.token);
+        console.log('Токен сохранён в localStorage:', data.token);
+        if (data.user) localStorage.setItem('userData', JSON.stringify(data.user));
+        navigate('/');
       } catch (err) {
-        setError('Ошибка соединения с сервером');
-        console.error('Auth error:', err);
+        setError(err.message);
       } finally {
         setIsLoading(false);
       }
-    };
+    } else {
+      console.log('Сохраняем данные регистрации локально:', {
+        username: formData.username,
+        email: formData.email,
+        password: formData.password
+      });
+
+      localStorage.setItem('registrationData', JSON.stringify({
+        username: formData.username,
+        email: formData.email,
+        password: formData.password
+      }));
+      navigate('/personal-info');
+    }
+  };
 
 
   return (
@@ -61,76 +82,95 @@ const AuthPage = ({ isLogin = false }) => {
       </div>
 
       <div className="form-section">
-        <div className="auth-header">
-          <h2>{isLogin ? 'Вход' : 'Регистрация'}</h2>
-          <p>{isLogin ? 'Войдите, и не упустите самые Горячие скидки!' : 'Зарегистрируйтесь, и не упустите самые Горячие скидки!'}</p>
-          <div className="divider"></div>
-        </div>
+        <div className='form-auth'>
+          <div className="auth-header">
+            <h2>{isLogin ? 'Вход' : 'Регистрация'}</h2>
+            <p>{isLogin ? 'Войдите, и не упустите самые Горячие скидки!' : 'Зарегистрируйтесь, и не упустите самые Горячие скидки!'}</p>
+          </div>
 
-        <form className="auth-form" onSubmit={handleSubmit}>
+          <form className="auth-form" onSubmit={handleSubmit}>
             {error && <div className="auth-error">{error}</div>}
-          
-          <div className="input-group">
-            <input
-              type="email"
-              name="email"
-              placeholder='Email'
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          
-          <div className="input-group">
-            <input
-              type="password"
-              name="password"
-              placeholder='Пароль'
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
-          </div>
 
-          <div className="submit-block">
-            <button type="submit" disabled={isLoading}>
+            {isLogin ? (
+              <div className="input-group">
+                <input
+                  type="text"
+                  name="username"
+                  placeholder="Логин"
+                  value={formData.username}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            ) : (
+              <>
+                <div className="input-group">
+                  <input
+                    type="text"
+                    name="username"
+                    placeholder="Логин"
+                    value={formData.username}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+                <div className="input-group">
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+              </>
+            )}
+
+            <div className="input-group">
+              <input
+                type="password"
+                name="password"
+                placeholder="Пароль"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="submit-block">
+              <button type="submit" disabled={isLoading}>
                 {isLoading ? 'Загрузка...' : isLogin ? 'Войти' : 'Продолжить'}
-            </button>
-            <p>Нажимая на кнопку вы соглашаетесь на обработку <strong>Персональных данных</strong></p>
+              </button>
+              <p>Нажимая на кнопку вы соглашаетесь на обработку <strong>Персональных данных</strong></p>
+            </div>
+          </form>
+
+          <div style={{
+          background: 'none',
+          width: '90.7%',
+          alignItems: 'center',
+          justifyContent: 'center',
+          }} 
+          className="divider divider-with-text">
+            <span>Или</span>
           </div>
-        </form>
 
-        <div className="divider divider-with-text">
-          <span>Или</span>
-        </div>
+          <button className="google-btn" type="button">
+            <img src="/image/google.svg" alt="Google" />
+            Google
+          </button>
 
-        <button className="google-btn">
-          <img src="/image/google.svg" alt="Google" />
-          Google
-        </button>
-
-        <div className="auth-link">
-          <span>{isLogin ? 'Ещё нет аккаунта?' : 'Уже есть аккаунт?'}</span>
-          <Link to={isLogin ? '/register' : '/login'}>
-            {isLogin ? 'Зарегистрироваться' : 'Войти'}
-          </Link>
+          <div className="auth-link">
+            <span>{isLogin ? 'Ещё нет аккаунта?' : 'Уже есть аккаунт?'}</span>
+            <Link to={isLogin ? '/register' : '/login'}>
+              {isLogin ? 'Зарегистрироваться' : 'Войти'}
+            </Link>
+          </div>
         </div>
       </div>
     </div>
   );
 };
-
-// Заглушка для API аутентификации
-async function fakeAuthAPI(email, password) {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        if (email === 'user@example.com' && password === 'password123') {
-          resolve({ success: true, token: 'fake-jwt-token' });
-        } else {
-          resolve({ success: false, message: 'Неверный email или пароль' });
-        }
-      }, 1000);
-    });
-}
 
 export default AuthPage;

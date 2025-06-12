@@ -1,29 +1,61 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './PartnerDashboard.css';
 import RestaurantCard from '../../components/RestaurantCard/RestaurantCard';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import ProductModal from '../../components/ProductModal/ProductModal.jsx';
 import ConfirmationModal from '../../components/ConfirmationModal/ConfirmationModal';
-import { restaurants } from '../../data/restaurants';
-import { popularProducts } from '../../data/products';
 import { productCategories } from '../../data/categories';
 
 export default function PartnerDashboard() {
-  const partnerShop = restaurants.find(shop => shop.isPartnerView);
-  const currentShop = partnerShop || restaurants[0];
-
-  const [products, setProducts] = useState(
-    popularProducts.filter(product => product.shopId === currentShop.id)
-  );
+  const [currentShop, setCurrentShop] = useState(null);
+  const [products, setProducts] = useState([]);
   const [isDeleteMode, setIsDeleteMode] = useState(false);
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [productModal, setProductModal] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // Группировка товаров по категориям
+  useEffect(() => {
+  const fetchShopData = async () => {
+    try {
+      const token = localStorage.getItem('authToken');
+      if (!token) throw new Error('Необходима авторизация');
+
+      const resShop = await fetch('http://localhost:8080/shops/admin', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+        if (!resShop.ok) throw new Error('Ошибка загрузки магазина');
+        const shopData = await resShop.json();
+
+        console.log('Вывод с бэка shopData:', shopData);
+
+        // shopData.currentUser - пользователь
+        // shopData.shop - массив с одним магазином
+        const shop = shopData.shop && shopData.shop.length > 0 ? shopData.shop[0] : null;
+
+        if (!shop) {
+          setCurrentShop(null);
+          setProducts([]);
+          return;
+        }
+
+        setCurrentShop(shop);
+        setProducts(shop.foods || []);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchShopData();
+  }, []);
+  // Группируем товары по категориям
   const productsByCategory = products.reduce((acc, product) => {
-    const category = productCategories.find(c => c.id === product.categoryId) || 
-                    { id: 9, name: 'Другое' };
+    const category = productCategories.find(c => c.name === product.category) || { id: 9, name: 'Другое' };
     if (!acc[category.id]) {
       acc[category.id] = {
         category,
@@ -34,14 +66,12 @@ export default function PartnerDashboard() {
     return acc;
   }, {});
 
-  // Обработчики для добавления/редактирования товара
+  // Обработчики действий с товарами
   const handleSaveProduct = (product) => {
     if (productModal.mode === 'add') {
       setProducts(prev => [...prev, product]);
     } else {
-      setProducts(prev => prev.map(p => 
-        p.id === product.id ? product : p
-      ));
+      setProducts(prev => prev.map(p => p.id === product.id ? product : p));
     }
     setProductModal(null);
   };
@@ -54,12 +84,36 @@ export default function PartnerDashboard() {
     setProducts(products.filter(product => product.id !== productId));
   };
 
-  const handleToggleVisibility = (productId) => {
-    setProducts(products.map(product =>
-      product.id === productId
-        ? { ...product, isVisible: !product.isVisible }
-        : product
-    ));
+  const handleToggleVisibility = async (productId) => {
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+      alert('Пожалуйста, авторизуйтесь');
+      return;
+    }
+
+    try {
+      const res = await fetch(`http://localhost:8080/food/toggleActive/${productId}`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!res.ok) throw new Error('Ошибка переключения видимости товара');
+
+      const updatedProduct = await res.json();
+      console.log('Обновлённый товар с сервера:', updatedProduct);
+
+      setProducts(prevProducts =>
+        prevProducts.map(product =>
+          product.id === productId ? { ...product, active: updatedProduct.active } : product
+        )
+      );
+    } catch (error) {
+      console.error(error);
+      alert(error.message);
+    }
   };
 
   const toggleDeleteMode = () => {
@@ -70,7 +124,7 @@ export default function PartnerDashboard() {
   };
 
   const toggleProductSelection = (productId) => {
-    setSelectedProducts(prev => 
+    setSelectedProducts(prev =>
       prev.includes(productId)
         ? prev.filter(id => id !== productId)
         : [...prev, productId]
@@ -88,13 +142,17 @@ export default function PartnerDashboard() {
     setShowConfirmation(false);
   };
 
+  if (loading) return <div>Загрузка данных...</div>;
+
+  if (!currentShop) return <div>Магазин партнёра не найден</div>;
+
   return (
     <div className="shop-dashboard">
       <div className="dashboard-content">
         <div className="delete-mode-header">
           <h2>Доска товаров</h2>
           {isDeleteMode && (
-            <button 
+            <button
               className={`delete-selected-btn ${selectedProducts.length === 0 ? 'disabled' : ''}`}
               onClick={handleBulkDelete}
               disabled={selectedProducts.length === 0}
@@ -106,7 +164,7 @@ export default function PartnerDashboard() {
 
         <RestaurantCard
           id={currentShop.id}
-          name={currentShop.name}
+          shopName={currentShop.name}
           ordersCount={currentShop.ordersCount}
           imageUrl={currentShop.imageUrl}
           isPartnerView={true}

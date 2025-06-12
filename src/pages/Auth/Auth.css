@@ -34,22 +34,29 @@
   /* Правая часть с формой */
   .form-section {
     width: 50%;
-    padding: 148px 200px 0 826px;
+    align-content: center;
+    justify-content: center;
+    display: grid;
   }
   
+  .form-auth{
+    width: 80.72%;
+  }
+
   .auth-header {
     width: 430px;
     height: 120px;
     margin-bottom: 72px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     gap: 12px;
+    align-items: center;
   }
   
   .auth-header h2 {
     width: 390px;
     height: 40px;
-    padding: 0 20px;
     justify-content: center;
     font-size: 36px;
     font-weight: 600;
@@ -59,12 +66,13 @@
   .auth-header p {
     width: 390px;
     height: 50px;
-    padding: 0 20px;
+    padding: 0 20px 20px;
     font-weight: 400;
     font-size: 18px;
     color: #000000;
     margin: 0;
     opacity: 0.4;
+    border-bottom: 1px solid #999;
   }
   
   .auth-form {
@@ -124,6 +132,8 @@
     align-items: center;
     margin: 18px 0;
     opacity: 0.4;
+    background: none;
+    background-color: #ffffff00;
   }
   
   .divider::before {

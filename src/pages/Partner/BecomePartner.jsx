@@ -1,10 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './BecomePartner.css';
+import { usePartnerShop } from '../../contexts/PartnerShopContext';
 
 const BecomePartner = () => {
   const [step, setStep] = useState(1);
   const [mapLoaded, setMapLoaded] = useState(false);
+  const { setPartnerShop } = usePartnerShop();
   const [formData, setFormData] = useState({
     shopName: '',
     website: '',
@@ -12,7 +14,9 @@ const BecomePartner = () => {
     email: '',
     description: '',
     logo: null,
-    location: null
+    location: null,
+    manualAddress: '',
+    shopType: ''
   });
 
   const fileInputRef = useRef(null);
@@ -20,20 +24,42 @@ const BecomePartner = () => {
   const mapRef = useRef(null);
   const navigate = useNavigate();
 
+  // Загрузка email и других данных пользователя с бэкенда при монтировании
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const token = localStorage.getItem('authToken');
+        if (!token) return;
+
+        const res = await fetch('http://localhost:8080/shops', {
+          method: 'GET',
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        if (!res.ok) throw new Error('Ошибка загрузки данных пользователя');
+
+        const data = await res.json();
+
+        if (data.currentUser) {
+          setFormData(prev => ({
+            ...prev,
+            email: data.currentUser.email || '',
+            // Можно при желании подгрузить и другие поля, если нужно
+          }));
+        }
+      } catch (err) {
+        console.error('Ошибка при загрузке пользователя:', err);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
   // Регулировка высоты textarea
   const adjustTextareaHeight = () => {
     if (textareaRef.current) {
       textareaRef.current.style.height = 'auto';
-      textareaRef.current.style.height = `${Math.min(
-        textareaRef.current.scrollHeight,
-        100
-      )}px`;
-    }
-  };
-
-  const handleBackClick = () => {
-    if (step > 1) {
-      setStep(step - 1);
+      textareaRef.current.style.height = `${Math.min(textareaRef.current.scrollHeight, 100)}px`;
     }
   };
 
@@ -41,7 +67,7 @@ const BecomePartner = () => {
     adjustTextareaHeight();
   }, [formData.description]);
 
-  // Загрузка карты для шага 3
+  // Загрузка карты (оставляем без изменений)
   useEffect(() => {
     if (step === 3 && !mapLoaded) {
       const script = document.createElement('script');
@@ -49,30 +75,26 @@ const BecomePartner = () => {
       script.onload = () => {
         window.ymaps.ready(() => {
           const map = new window.ymaps.Map('map', {
-            center: [56.838011, 60.597465], // Координаты Екатеринбурга
+            center: [56.838011, 60.597465],
             zoom: 12,
             controls: ['zoomControl']
           });
 
-          // Обработчик клика по карте
           map.events.add('click', (e) => {
             const coords = e.get('coords');
-            
-            // Удаляем предыдущую метку
+
             map.geoObjects.removeAll();
-            
-            // Добавляем новую метку
+
             const placemark = new window.ymaps.Placemark(coords, {}, {
               preset: 'islands#redDotIcon'
             });
             map.geoObjects.add(placemark);
 
-            // Сохраняем данные
             setFormData(prev => ({
               ...prev,
               location: {
                 coordinates: coords,
-                address: 'Местоположение выбрано' // Можно добавить геокодирование
+                address: prev.manualAddress
               }
             }));
           });
@@ -104,17 +126,86 @@ const BecomePartner = () => {
     fileInputRef.current.click();
   };
 
+  // Отправка данных магазина и обновленного email на сервер
+  const sendShopData = async () => {
+  const token = localStorage.getItem('authToken');
+
+    if (!token) {
+      alert('Пожалуйста, войдите в систему перед созданием магазина.');
+      return;
+    }
+
+    try {
+      // // Логируем данные email перед отправкой
+      // console.log('Отправляем email на сервер:', formData.email);
+      // const emailPayload = { email: formData.email };
+      // const emailRes = await fetch('http://localhost:8080/shops', {
+      //   method: 'PUT',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //     'Authorization': `Bearer ${token}`
+      //   },
+      //   body: JSON.stringify(emailPayload)
+      // });
+
+      // console.log('Ответ сервера по обновлению email:', emailRes.status);
+      // if (!emailRes.ok) {
+      //   const errorData = await emailRes.json();
+      //   throw new Error(errorData.message || 'Ошибка обновления email');
+      // }
+
+      // Логируем данные магазина перед отправкой
+      const payload = {
+        name: formData.shopName,
+        description: formData.description,
+        address: formData.manualAddress || '',
+        contactPhone: formData.phone,
+        shopType: formData.shopType
+      };
+      console.log('Отправляем данные магазина:', payload);
+
+      const response = await fetch('http://localhost:8080/shops', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(payload)
+      });
+
+      console.log('Ответ сервера по созданию магазина:', response.status);
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Ошибка при создании магазина');
+      }
+
+      const createdShop = await response.json();
+      console.log('Созданный магазин:', createdShop);
+      setPartnerShop(createdShop);
+
+      navigate('/application-sent');
+    } catch (error) {
+      console.error('Ошибка при отправке данных:', error);
+      alert(error.message);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (step < 3) {
       setStep(step + 1);
     } else {
-      console.log('Данные для отправки:', formData);
-      navigate('/application-sent');
+      sendShopData();
     }
   };
 
-  return (
+  const handleBackClick = () => {
+    if (step > 1) {
+      setStep(step - 1);
+    }
+  };
+
+   return (
     <div className="become-container">
       <div className="form-section">
         <Link 
@@ -143,24 +234,32 @@ const BecomePartner = () => {
                   placeholder={field}
                   value={formData[field === 'Название' ? 'shopName' : 'website']}
                   onChange={handleChange}
-                  required
+                  required={field === 'Название'}
                 />
               </div>
             ))}
 
             <h4>Контакты</h4>
-            {['Телефон', 'Email'].map((field) => (
-              <div className="input-group" key={field}>
+              <div className="input-group">
                 <input
-                  type={field === 'Email' ? 'email' : 'tel'}
-                  name={field.toLowerCase()}
-                  placeholder={field}
-                  value={formData[field.toLowerCase()]}
+                  type="email"
+                  name="email"
+                  placeholder="Укажите почтовый адрес"
+                  value={formData.email}
                   onChange={handleChange}
                   required
                 />
               </div>
-            ))}
+              <div className="input-group">
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder="Телефон"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
             <button type="submit" className="continue-button">
               Продолжить
             </button>
@@ -170,6 +269,7 @@ const BecomePartner = () => {
         {step === 2 && (
           <form className="become-form" onSubmit={handleSubmit}>
             <h3>О магазине</h3>
+
             <div className="description-group">
               <textarea
                 ref={textareaRef}
@@ -243,14 +343,22 @@ const BecomePartner = () => {
             )}
             
             <div className="map-container">
-              <div id="map" style={{ height: '100%', width: '100%' }}></div>
+        <div id="map" style={{ height: '100%', width: '100%' }}></div>
+      </div>
+      
+            {/* Добавляем поле для ввода адреса */}
+            <div className="input-group">
+              <input
+                type="text"
+                name="manualAddress"
+                placeholder="Введите адрес"
+                value={formData.manualAddress}
+                onChange={handleChange}
+                required
+              />
             </div>
-            
-            <button 
-              type="submit" 
-              className="continue-button"
-              disabled={!formData.location}
-            >
+
+            <button type="submit" className="continue-button" disabled={!formData.location}>
               Продолжить
             </button>
           </form>

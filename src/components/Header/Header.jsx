@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styles from './Header.module.css';
 import ProfileModal from './ProfileModal/ProfileModal';
 import SearchBar from './SearchBar.jsx/SearchBar';
@@ -8,31 +8,101 @@ const Header = () => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
-  const [profilePhoto, setProfilePhoto] = useState('/image/profileMain.png'); // Фото по умолчанию
+  const [profilePhoto, setProfilePhoto] = useState('/image/profileMain.png');
+  const [userName, setUserName] = useState({ firstName: '', lastName: '' });
+  const [currentUser, setCurrentUser] = useState(null);
+
   const location = useLocation();
-  
+  const navigate = useNavigate();
+
   const isCartPage = location.pathname === '/cart';
   const isPartnerPage = location.pathname.startsWith('/partner');
 
-  // Загружаем сохраненное фото профиля при монтировании компонента
   useEffect(() => {
-    const savedProfilePhoto = localStorage.getItem('profilePhoto');
-    if (savedProfilePhoto) {
-      setProfilePhoto(savedProfilePhoto);
-    }
-  }, []);
+    const fetchUserData = async () => {
+      try {
+        const token = localStorage.getItem('authToken');
+        if (!token) return;
 
-  // Обновляем фото при изменении в localStorage (например, из другого окна)
-  useEffect(() => {
-    const handleStorageChange = (e) => {
-      if (e.key === 'profilePhoto') {
-        setProfilePhoto(e.newValue || '/image/profileMain.png');
+        const res = await fetch('http://localhost:8080/shops', {
+          method: 'GET',
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('Ошибка загрузки данных пользователя');
+        const data = await res.json();
+
+        if (data.currentUser) {
+          setCurrentUser(data.currentUser);
+          setUserName({ 
+            firstName: data.currentUser.firstName || '', 
+            lastName: data.currentUser.lastName || '' 
+          });
+        }
+      } catch (err) {
+        console.error('Ошибка при загрузке пользователя:', err);
       }
     };
 
-    window.addEventListener('storage', handleStorageChange);
-    return () => window.removeEventListener('storage', handleStorageChange);
+    fetchUserData();
   }, []);
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate('/login');
+  };
+
+  const handlePartnershipClick = () => {
+    if (!currentUser) {
+      navigate('/login');
+      return;
+    }
+
+    if (currentUser.role === 'ROLE_ADMIN') {
+      // Пользователь с ролью ADMIN — переходим в дашборд партнёра
+      navigate('/partner-dashboard');
+    } else if (currentUser.role === 'ROLE_USER') {
+      // Обычный пользователь — переходим на страницу "Стать партнером"
+      navigate('/become-partner');
+    } else {
+      // Для других ролей — можно задать логику или оставить переход на главную
+      navigate('/');
+    }
+  };
+
+  const handleSwitchModeClick = async () => {
+  try {
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+      navigate('/login');
+      return;
+    }
+
+    // Отправляем запрос на бэкенд с токеном для обновления данных
+    const res = await fetch('http://localhost:8080/shops', {
+      method: 'GET',
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+
+    if (!res.ok) throw new Error('Ошибка обновления данных пользователя');
+
+    const data = await res.json();
+    // Здесь можно обновить состояние пользователя, если нужно
+    if (data.currentUser) {
+      setCurrentUser(data.currentUser);
+      setUserName({ 
+        firstName: data.currentUser.firstName || '', 
+        lastName: data.currentUser.lastName || '' 
+      });
+    }
+
+    // Перенаправляем на главную страницу
+    navigate('/');
+  } catch (error) {
+    console.error('Ошибка при смене режима:', error);
+    // Можно показать уведомление или перенаправить на логин
+    navigate('/login');
+  }
+};
 
   return (
     <div className={styles.headerWrapper}>
@@ -45,14 +115,19 @@ const Header = () => {
 
         {showSidebar && (
           <div className={styles.sidebarMenu}>
-            <Link to="/" className={styles.sidebarItem}>
+            <Link 
+              to={isPartnerPage ? "/partner-dashboard" : "/"} 
+              className={styles.sidebarItem}
+            >
               <img src='/image/catalog-item.png' alt="Каталог" className={styles.sidebarIcon} />
               <span>Каталог</span>
             </Link>
-            <Link to="/favorites" className={styles.sidebarItem}>
-              <img src='/image/favourite-item.png' alt="Любимые" className={styles.sidebarIcon} />
-              <span>Любимые</span>
-            </Link>
+            {!isPartnerPage && (
+              <Link to="/favorites" className={styles.sidebarItem}>
+                <img src='/image/favourite-item.png' alt="Любимые" className={styles.sidebarIcon} />
+                <span>Любимые</span>
+              </Link>
+            )}
           </div>
         )}
 
@@ -94,16 +169,17 @@ const Header = () => {
 
           <div
             className={`${styles.profileIcon} ${showProfileMenu ? styles.active : ''}`}
-            onClick={() => setShowProfileMenu(!showProfileMenu)}>
-            <img src={profilePhoto} alt="Профиль" onError={(e) => {
-              e.target.src = '/image/profileMain.png';
-            }}/>
+            onClick={() => setShowProfileMenu(!showProfileMenu)}
+          >
+            <img src={profilePhoto} alt="Профиль" onError={e => { e.target.src = '/image/profileMain.png'; }} />
           </div>
 
           {showProfileMenu && (
             <div className={styles.profileMenu}>
               <div className={styles.profileHeader}>
-                <div className={styles.profileName}>Коноплёв Роман</div>
+                <div className={styles.profileName}>
+                  {userName.lastName} {userName.firstName}
+                </div>
                 <div
                   className={styles.profileLink}
                   onClick={() => {
@@ -159,38 +235,53 @@ const Header = () => {
                       <img src='/image/history-icon.png' alt="История" className={styles.menuIcon} />
                       <span>История заказов</span>
                     </Link>
-                    <Link to="/settings" className={styles.menuItem}>
-                      <img src='/image/settings-icon.png' alt="Настройки" className={styles.menuIcon} />
-                      <span>Настройки</span>
-                    </Link>
                   </>
                 )}
 
-                <Link to="/logout" className={styles.menuItem}>
+                <button 
+                  className={styles.menuItem} 
+                  onClick={handleLogout} 
+                  style={{ background: 'none', border: 'none', cursor: 'pointer' }}
+                >
                   <img src='/image/logout-icon.png' alt="Выйти" className={styles.menuIcon} />
                   <span>Выйти</span>
-                </Link>
+                </button>
 
-                <Link 
-                  to={isPartnerPage ? "/" : "/become-partner"} 
-                  className={styles.menuItem}
-                >
-                  <img src='/image/partnership-icon.png' alt="Режим" className={styles.menuIcon} />
-                  <span>{isPartnerPage ? "Сменить режим" : "Партнерство"}</span>
-                </Link>
+                {!isPartnerPage && (
+                  <button 
+                    className={styles.menuItem}
+                    onClick={handlePartnershipClick}
+                    style={{ background: 'none', border: 'none', cursor: 'pointer' }}
+                  >
+                    <img src='/image/partnership-icon.png' alt="Партнерство" className={styles.menuIcon} />
+                    <span>Партнерство</span>
+                  </button>
+                )}
+
+                {/* Кнопка Сменить режим */}
+                {isPartnerPage && (
+                  <button
+                    className={styles.menuItem}
+                    onClick={handleSwitchModeClick}
+                    style={{ background: 'none', border: 'none', cursor: 'pointer'}}
+                  >
+                    <img src='/image/partnership-icon.png' alt="Сменить режим" className={styles.menuIcon} />
+                    <span>Сменить режим</span>
+                  </button>
+                )}
               </div>
             </div>
           )}
         </div>
 
         {showProfileModal && (
-          <ProfileModal 
-            onClose={() => setShowProfileModal(false)} 
+          <ProfileModal
+            onClose={() => setShowProfileModal(false)}
             isPartnerPage={isPartnerPage}
-            onPhotoUpdate={(newPhoto) => {
-              setProfilePhoto(newPhoto);
-              localStorage.setItem('profilePhoto', newPhoto);
-            }}
+            // onPhotoUpdate={(newPhoto) => {
+            //   setProfilePhoto(newPhoto);
+            // //   localStorage.setItem('profilePhoto', newPhoto);
+            // }}
           />
         )}
       </header>

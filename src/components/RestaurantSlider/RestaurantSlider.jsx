@@ -3,7 +3,6 @@ import RestaurantCard from '../RestaurantCard/RestaurantCard';
 import './RestaurantSlider.css';
 import arrowRight from '/image/arrow-right.svg';
 import arrowLeft from '/image/arrow-left.svg';
-import { restaurants } from '../../data/restaurants';
 import { useFavorites } from '../../contexts/FavoritesContext';
 
 const RestaurantSlider = () => {
@@ -11,6 +10,36 @@ const RestaurantSlider = () => {
   const [showLeftButton, setShowLeftButton] = useState(false);
   const [showRightButton, setShowRightButton] = useState(true);
   const { favorites, toggleFavorite } = useFavorites();
+  const [shops, setShops] = useState([]);
+
+  useEffect(() => {
+    const fetchShops = async () => {
+      try {
+        const token = localStorage.getItem('authToken');
+        console.log('Token:', localStorage.getItem('authToken'));
+        if (!token) return;
+
+        const response = await fetch('http://localhost:8080/shops', {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+        if (!response.ok) throw new Error('Ошибка сети');
+        const data = await response.json();
+
+        console.log('Ответ сервера:', response);
+        console.log('Данные магазинов:', data);
+
+        // Проверяем и используем data.shops или пустой массив, если его нет
+        setShops(data.shops || []);
+
+      } catch (error) {
+        console.error("Ошибка при загрузке данных о магазинах:", error);
+      }
+    };
+    fetchShops();
+  }, []);
 
   const checkScrollPosition = () => {
     if (sliderRef.current) {
@@ -28,7 +57,7 @@ const RestaurantSlider = () => {
 
   const scroll = (direction) => {
     if (sliderRef.current) {
-      const scrollAmount = direction === 'right' ? 550 : -550;
+      const scrollAmount = direction === 'right' ? 1500 : -1500;
       sliderRef.current.scrollBy({
         left: scrollAmount,
         behavior: 'smooth'
@@ -46,14 +75,15 @@ const RestaurantSlider = () => {
           </button>
         )}
         <div className="restaurant-slider" ref={sliderRef}>
-          {restaurants.map(restaurant => (
+          {shops.map(shop => (
             <RestaurantCard 
-              key={restaurant.id}
-              id={restaurant.id}
-              name={restaurant.name}
-              ordersCount={restaurant.ordersCount}
-              imageUrl={restaurant.imageUrl}
-              isFavorite={favorites.includes(restaurant.id)}
+              key={shop.id}
+              id={shop.id}
+              name={shop.name}
+              ordersCount={shop.ordersCount}
+              imageUrl={shop.imageUrl}
+              shopName={shop.name} // передаем название магазина напрямую
+              isFavorite={favorites.includes(shop.id)}
               onToggleFavorite={toggleFavorite}
             />
           ))}
@@ -69,4 +99,3 @@ const RestaurantSlider = () => {
 };
 
 export default RestaurantSlider;
-export { restaurants };
