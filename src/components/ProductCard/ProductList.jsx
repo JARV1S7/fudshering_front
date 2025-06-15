@@ -22,7 +22,7 @@ const ProductsList = () => {
     }
 
     try {
-      const res = await fetch(`http://localhost:8080/food/toggleActive/${productId}`, {
+      const res = await fetch(`http://89.111.154.66:8080/food/toggleActive/${productId}`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -54,7 +54,7 @@ const ProductsList = () => {
           return;
         }
 
-        const res = await fetch('http://localhost:8080/shops', {
+        const res = await fetch('http://89.111.154.66:8080/shops', {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'

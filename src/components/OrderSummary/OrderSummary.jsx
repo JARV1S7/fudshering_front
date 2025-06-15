@@ -29,7 +29,7 @@ const OrderSummary = ({ cartItems, checkoutStage, onNext }) => {
         const token = localStorage.getItem('authToken');
         if (!token) return;
 
-        const res = await fetch('http://localhost:8080/shops/admin', {
+        const res = await fetch('http://89.111.154.66:8080/shops/admin', {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
@@ -73,7 +73,7 @@ const OrderSummary = ({ cartItems, checkoutStage, onNext }) => {
         discountPrice: Number(totalPrice), 
       };
 
-      const res = await fetch('http://localhost:8080/orders', {
+      const res = await fetch('http://89.111.154.66:8080/orders', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

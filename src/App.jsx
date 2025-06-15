@@ -29,7 +29,7 @@ function App() {
             <Routes>
               {/* Роуты без хедера */}
               <Route element={<WithoutHeaderLayout />}>
-                <Route path="/login" element={<LoginPage />} />
+                <Route path="/" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/personal-info" element={<PersonalInfo />} />
                 <Route path="/become-partner" element={<BecomePartner />} />
@@ -38,7 +38,7 @@ function App() {
 
               {/* Роуты с хедером */}
               <Route element={<WithHeaderLayout />}>
-                <Route path="/" element={<MainPage />} />
+                <Route path="/home" element={<MainPage />} />
                 <Route path="/cart" element={<CartPage />} />
                 <Route path="/favorites" element={<FavoritesPage />} />
                 <Route path="/partner-dashboard" element={<PartnerDashboardPage />} />

@@ -15,7 +15,7 @@ const ProfileContainer = () => {
         const token = localStorage.getItem('authToken');
         if (!token) return;
 
-        const response = await fetch('http://localhost:8080/shops/admin', {
+        const response = await fetch('http://89.111.154.66:8080/shops/admin', {
           headers: {
             'Authorization': `Bearer ${token}`,
           },

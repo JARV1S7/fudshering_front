@@ -1,7 +1,7 @@
 const API_BASE_URL = 'https://your-backend-url.com/api';
 
 export async function login(email, password) {
-  const response = await fetch(`${API_BASE_URL}/login`, {
+  const response = await fetch(`${API_BASE_URL}/`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password }),

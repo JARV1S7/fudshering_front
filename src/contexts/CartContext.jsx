@@ -26,7 +26,7 @@ export const CartProvider = ({ children }) => {
 
     const fetchFoods = async () => {
       try {
-        const res = await fetch('http://localhost:8080/shops', {
+        const res = await fetch('http://89.111.154.66:8080/shops', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         if (!res.ok) throw new Error('Ошибка загрузки товаров');
@@ -47,7 +47,7 @@ export const CartProvider = ({ children }) => {
     if (!token || foods.length === 0) return;
 
     try {
-      const res = await fetch('http://localhost:8080/cart', {
+      const res = await fetch('http://89.111.154.66:8080/cart', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (!res.ok) throw new Error('Ошибка загрузки корзины');
@@ -103,7 +103,7 @@ export const CartProvider = ({ children }) => {
 
     try {
       console.log('Отправляем на сервер для добавления:', product);
-      const res = await fetch(`http://localhost:8080/shops/${product.shopId}/foods/cart`, {
+      const res = await fetch(`http://89.111.154.66:8080/shops/${product.shopId}/foods/cart`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -130,7 +130,7 @@ export const CartProvider = ({ children }) => {
       return;
     }
 
-    const url = `http://localhost:8080/cart/increase/${cartItemId}`;
+    const url = `http://89.111.154.66:8080/cart/increase/${cartItemId}`;
     console.log('Отправляем запрос на увеличение количества товара с cartItemId=', cartItemId);
 
     try {
@@ -152,7 +152,6 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  // Уменьшение количества товара по cartItemId
   const decreaseQuantity = async (cartItemId) => {
     const token = localStorage.getItem('authToken');
     console.log('Токен для уменьшения количества:', token);
@@ -161,7 +160,7 @@ export const CartProvider = ({ children }) => {
       return;
     }
 
-    const url = `http://localhost:8080/cart/decrease/${cartItemId}`;
+    const url = `http://89.111.154.66:8080/cart/decrease/${cartItemId}`;
     console.log('Отправляем запрос на уменьшение количества товара с cartItemId=', cartItemId);
 
     try {
@@ -192,7 +191,7 @@ export const CartProvider = ({ children }) => {
     }
 
     try {
-      const res = await fetch(`http://localhost:8080/cart/${cartItemId}`, {
+      const res = await fetch(`http://89.111.154.66:8080/cart/${cartItemId}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });

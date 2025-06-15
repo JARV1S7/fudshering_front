@@ -7,10 +7,11 @@ const CartItem = ({ product, onIncrease, onDecrease, onRemove }) => {
   const price = product.price ?? 0;
   const quantity = product.quantity ?? 0;
   const savings = (oldPrice * quantity) - (price * quantity);
+  const imageSrc = product.image ? '/image/product1.png' : '';
 
   return (
     <div className={styles.cartItem}>
-      <img src={product.image} alt={product.name} className={styles.productImage} />
+      <img src={imageSrc} alt={product.name} className={styles.productImage} />
 
       <div className={styles.topRow}>
         <div className={styles.productInfo}>
@@ -41,7 +42,7 @@ CartItem.propTypes = {
   product: PropTypes.shape({
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     name: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
+    image: PropTypes.string,
     price: PropTypes.number.isRequired,
     oldPrice: PropTypes.number.isRequired,
     quantity: PropTypes.number.isRequired,

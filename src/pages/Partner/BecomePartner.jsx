@@ -30,7 +30,7 @@ const BecomePartner = () => {
         const token = localStorage.getItem('authToken');
         if (!token) return;
 
-        const res = await fetch('http://localhost:8080/shops', {
+        const res = await fetch('http://89.111.154.66:8080/shops', {
           method: 'GET',
           headers: { 'Authorization': `Bearer ${token}` }
         });
@@ -140,7 +140,7 @@ const BecomePartner = () => {
       };
       console.log('Отправляем данные магазина:', payload);
 
-      const response = await fetch('http://localhost:8080/shops', {
+      const response = await fetch('http://89.111.154.66:8080/shops', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -185,7 +185,7 @@ const BecomePartner = () => {
     <div className="become-container">
       <div className="form-section">
         <Link 
-          to={step === 1 ? "/" : ""} 
+          to={step === 1 ? "/home" : ""} 
           className="skip-button" 
           onClick={handleBackClick}
         >

@@ -107,7 +107,7 @@ const ProductCard = ({
         return;
       }
 
-      const response = await fetch(`http://localhost:8080/food/toggleActive/${productId}`, {
+      const response = await fetch(`http://89.111.154.66:8080/food/toggleActive/${productId}`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

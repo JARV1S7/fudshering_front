@@ -14,7 +14,7 @@ const OrdersPage = () => {
       try {
         const token = localStorage.getItem('authToken');
         if (!token) throw new Error('Необходима авторизация');
-        const res = await fetch('http://localhost:8080/orders', {
+        const res = await fetch('http://89.111.154.66:8080/orders', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         if (!res.ok) throw new Error('Ошибка загрузки заказов');

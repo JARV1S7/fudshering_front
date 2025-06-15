@@ -19,7 +19,7 @@ const RestaurantSlider = () => {
         console.log('Token:', localStorage.getItem('authToken'));
         if (!token) return;
 
-        const response = await fetch('http://localhost:8080/shops', {
+        const response = await fetch('http://89.111.154.66:8080/shops', {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'

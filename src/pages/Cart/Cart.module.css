@@ -155,7 +155,7 @@
 @media (min-width: 1440px) and (max-width: 1919px) {
   .container {
     margin: 0 5%;
-    padding: 30px;
+    padding: 140px 20px;
   }
   
   .title {
@@ -171,7 +171,7 @@
 @media (min-width: 1024px) and (max-width: 1439px) {
   .container {
     margin: 0 4%;
-    padding: 25px;
+    padding: 140px 20px;
   }
   
   .summary {

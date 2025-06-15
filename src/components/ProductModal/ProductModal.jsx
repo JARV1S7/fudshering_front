@@ -90,8 +90,8 @@ const ProductModal = ({
       if (!token) throw new Error('Необходима авторизация');
 
       const url = mode === 'add'
-        ? `http://localhost:8080/shops/${shopId}/foods`
-        : `http://localhost:8080/shops/${shopId}/foods/${product.id}`;
+        ? `http://89.111.154.66:8080/shops/${shopId}/foods`
+        : `http://89.111.154.66:8080/shops/${shopId}/foods/${product.id}`;
 
       const method = mode === 'add' ? 'POST' : 'PUT';
 

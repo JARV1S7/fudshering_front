@@ -33,7 +33,7 @@ export default function PartnerDashboard() {
       const token = localStorage.getItem('authToken');
       if (!token) throw new Error('Необходима авторизация');
 
-      const resShop = await fetch('http://localhost:8080/shops/admin', {
+      const resShop = await fetch('http://89.111.154.66:8080/shops/admin', {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -96,7 +96,7 @@ export default function PartnerDashboard() {
     }
 
     try {
-      const res = await fetch(`http://localhost:8080/food/toggleActive/${productId}`, {
+      const res = await fetch(`http://89.111.154.66:8080/food/toggleActive/${productId}`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

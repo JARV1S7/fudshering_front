@@ -31,7 +31,7 @@ const MainPage = () => {
           return;
         }
 
-        const res = await fetch('http://localhost:8080/shops', {
+        const res = await fetch('http://89.111.154.66:8080/shops', {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'

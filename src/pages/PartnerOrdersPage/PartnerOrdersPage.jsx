@@ -15,13 +15,13 @@ const PartnerOrdersPage = () => {
         const token = localStorage.getItem('authToken');
         if (!token) throw new Error('Необходима авторизация');
 
-        const ordersRes = await fetch('http://localhost:8080/orders', {
+        const ordersRes = await fetch('http://89.111.154.66:8080/orders', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         if (!ordersRes.ok) throw new Error('Ошибка загрузки заказов');
         const ordersData = await ordersRes.json();
 
-        const shopsRes = await fetch('http://localhost:8080/shops', {
+        const shopsRes = await fetch('http://89.111.154.66:8080/shops', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         if (!shopsRes.ok) throw new Error('Ошибка загрузки магазинов');
@@ -57,7 +57,7 @@ const PartnerOrdersPage = () => {
       const token = localStorage.getItem('authToken');
       if (!token) throw new Error('Необходима авторизация');
 
-      const res = await fetch(`http://localhost:8080/orders/${order.id}`, {
+      const res = await fetch(`http://89.111.154.66:8080/orders/${order.id}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (!res.ok) throw new Error('Ошибка загрузки заказа');
@@ -84,7 +84,7 @@ const PartnerOrdersPage = () => {
       const token = localStorage.getItem('authToken');
       if (!token) throw new Error('Необходима авторизация');
 
-      const res = await fetch(`http://localhost:8080/orders/${orderId}/${newStatusUrl}`, {
+      const res = await fetch(`http://89.111.154.66:8080/orders/${orderId}/${newStatusUrl}`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -101,6 +101,8 @@ const PartnerOrdersPage = () => {
     }
   };
 
+  
+
   if (loading) return <p>Загрузка...</p>;
 
   return (
@@ -108,16 +110,29 @@ const PartnerOrdersPage = () => {
       <div className={styles.ordersList}>
         <h1 className={styles.pageTitle}>Активные заказы</h1>
         {orders.length === 0 && <p>Заказы отсутствуют</p>}
-        {orders.map(order => (
+        {orders.map(order => {
+        const createdAtDate = order.createdAt ? new Date(order.createdAt) : null;
+        const formattedDate = createdAtDate
+          ? createdAtDate.toLocaleString('ru-RU', {
+              day: '2-digit',
+              month: '2-digit',
+              year: 'numeric',
+            })
+          : '';
+
+        return (
           <OrderCard
             key={order.id}
             orderNumber={`№${order.id}`}
             status={translateStatus(order.status)}
             pickupTime={order.pickupTime || ''}
+            date={formattedDate}
             image="/image/order-placeholder.png"
+            isHistory={true}
             onClick={() => handleOrderClick(order)}
           />
-        ))}
+        );
+      })}
       </div>
 
       {selectedOrder && (

@@ -63,7 +63,7 @@ const [lastScrollY, setLastScrollY] = useState(0);
         const token = localStorage.getItem('authToken');
         if (!token) return;
 
-        const resShops = await fetch('http://localhost:8080/shops', {
+        const resShops = await fetch('http://89.111.154.66:8080/shops', {
           method: 'GET',
           headers: { 'Authorization': `Bearer ${token}` }
         });
@@ -77,7 +77,7 @@ const [lastScrollY, setLastScrollY] = useState(0);
             lastName: dataShops.currentUser.lastName || '' 
           });
 
-          const resOrders = await fetch('http://localhost:8080/orders', {
+          const resOrders = await fetch('http://89.111.154.66:8080/orders', {
             headers: { 'Authorization': `Bearer ${token}` }
           });
           if (!resOrders.ok) throw new Error('Ошибка загрузки заказов');
@@ -105,12 +105,12 @@ const [lastScrollY, setLastScrollY] = useState(0);
 
   const handleLogout = () => {
     localStorage.clear();
-    navigate('/login');
+    navigate('/');
   };
 
   const handlePartnershipClick = () => {
     if (!currentUser) {
-      navigate('/login');
+      navigate('/');
       return;
     }
 
@@ -119,7 +119,7 @@ const [lastScrollY, setLastScrollY] = useState(0);
     } else if (currentUser.role === 'ROLE_USER') {
       navigate('/become-partner');
     } else {
-      navigate('/');
+      navigate('/home');
     }
   };
 
@@ -127,11 +127,11 @@ const [lastScrollY, setLastScrollY] = useState(0);
   try {
     const token = localStorage.getItem('authToken');
     if (!token) {
-      navigate('/login');
+      navigate('/');
       return;
     }
 
-    const res = await fetch('http://localhost:8080/shops', {
+    const res = await fetch('http://89.111.154.66:8080/shops', {
       method: 'GET',
       headers: { 'Authorization': `Bearer ${token}` }
     });
@@ -147,10 +147,10 @@ const [lastScrollY, setLastScrollY] = useState(0);
       });
     }
 
-    navigate('/');
+    navigate('/home');
   } catch (error) {
     console.error('Ошибка при смене режима:', error);
-    navigate('/login');
+    navigate('/');
   }
 };
 
@@ -166,7 +166,7 @@ const [lastScrollY, setLastScrollY] = useState(0);
         {showSidebar && (
           <div ref={sidebarRef} className={styles.sidebarMenu}>
             <Link 
-              to={isPartnerPage ? "/partner-dashboard" : "/"} 
+              to={isPartnerPage ? "/partner-dashboard" : "/home"} 
               className={styles.sidebarItem}
             >
               <img src='/image/catalog-item.png' alt="Каталог" className={styles.sidebarIcon} />

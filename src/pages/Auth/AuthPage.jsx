@@ -38,7 +38,7 @@ const AuthPage = ({ isLogin = false }) => {
       try {
         console.log('Отправляем данные для входа:', { username: formData.username, password: formData.password });
 
-        const response = await fetch('http://localhost:8080/auth/sign-in', {
+        const response = await fetch('http://89.111.154.66:8080/auth/sign-in', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -171,7 +171,7 @@ const AuthPage = ({ isLogin = false }) => {
 
           <div className="auth-link">
             <span>{isLogin ? 'Ещё нет аккаунта?' : 'Уже есть аккаунт?'}</span>
-            <Link to={isLogin ? '/register' : '/login'}>
+            <Link to={isLogin ? '/register' : '/'}>
               {isLogin ? 'Зарегистрироваться' : 'Войти'}
             </Link>
           </div>

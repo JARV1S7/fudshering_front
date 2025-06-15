@@ -25,7 +25,7 @@ const ProfileModal = ({ onClose, isPartnerPage }) => {
       const token = localStorage.getItem('authToken');
       if (!token) return;
 
-      const res = await fetch('http://localhost:8080/shops/admin', {
+      const res = await fetch('http://89.111.154.66:8080/shops/admin', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (!res.ok) throw new Error('Ошибка загрузки профиля');

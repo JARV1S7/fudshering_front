@@ -36,7 +36,7 @@ const ShopPage = () => {
         const token = localStorage.getItem('authToken');
         if (!token) throw new Error('Необходима авторизация');
 
-        const res = await fetch(`http://localhost:8080/shops/${id}`, {
+        const res = await fetch(`http://89.111.154.66:8080/shops/${id}`, {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'

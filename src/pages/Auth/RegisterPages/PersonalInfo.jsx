@@ -52,7 +52,7 @@ const PersonalInfo = () => {
   console.log('Отправляем данные регистрации с личной информацией (без фото):', dataToSend);
 
   try {
-    const response = await fetch('http://localhost:8080/auth/sign-up', {
+    const response = await fetch('http://89.111.154.66:8080/auth/sign-up', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -76,7 +76,7 @@ const PersonalInfo = () => {
 
       localStorage.removeItem('registrationData');
 
-      navigate('/');
+      navigate('/home');
     } catch (err) {
       alert(err.message);
     }

@@ -3,7 +3,7 @@ import styles from './OrderConfirmation.module.css';
 
 const createOrder = async (orderData) => {
   const token = localStorage.getItem('authToken');
-  const response = await fetch('http://localhost:8080/orders', {
+  const response = await fetch('http://89.111.154.66:8080/orders', {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${token}`,
