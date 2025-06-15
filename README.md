@@ -6,7 +6,6 @@ React-приложение для фудшеринга с возможность
 - React
 - Vite
 - React Router
-- Leaflet (карты)
 
 ## Установка
 1. `npm install`
