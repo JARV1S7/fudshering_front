@@ -15,7 +15,6 @@ const RegisterPage = lazy(() => import('./pages/Auth/Register'));
 const PersonalInfo = lazy(() => import('./pages/Auth/RegisterPages/PersonalInfo'));
 const BecomePartner = lazy(() => import('./pages/Partner/BecomePartner'));
 const ApplicationSent = lazy(() => import('./pages/Partner/ApplicationSent'));
-const ProfilePage = lazy(() => import('./pages/UserProfile/UserProfile'));
 const ShopPage = lazy(() => import('./pages/ShopPage/ShopPage'));
 const OrdersPage = lazy(() => import('./pages/Orders/OrdersPage'));
 const OrderHistoryPage = lazy(() => import('./pages/Orders/OrderHistory/OrderHistoryPage'));
@@ -43,7 +42,6 @@ function App() {
                 <Route path="/cart" element={<CartPage />} />
                 <Route path="/favorites" element={<FavoritesPage />} />
                 <Route path="/partner-dashboard" element={<PartnerDashboardPage />} />
-                <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/orders" element={<OrdersPage />} />
                 <Route path="/order-history" element={<OrderHistoryPage />} />
                 <Route path="/restaurant/:id" element={<ShopPage />} />
