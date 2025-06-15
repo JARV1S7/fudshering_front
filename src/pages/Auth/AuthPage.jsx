@@ -27,6 +27,12 @@ const AuthPage = ({ isLogin = false }) => {
     e.preventDefault();
     setError('');
 
+    // Проверка длины логина и для входа, и для регистрации
+    if (formData.username.length < 5 || formData.username.length > 50) {
+      setError('Логин должен содержать от 5 до 50 символов');
+      return;
+    }
+
     if (isLogin) {
       setIsLoading(true);
       try {
@@ -55,6 +61,7 @@ const AuthPage = ({ isLogin = false }) => {
         setIsLoading(false);
       }
     } else {
+      // Регистрация
       console.log('Сохраняем данные регистрации локально:', {
         username: formData.username,
         email: formData.email,
