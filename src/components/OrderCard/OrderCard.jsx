@@ -17,11 +17,16 @@ const OrderCard = ({
     'Получен': styles.statusReceived,
     'Готовится': styles.statusPreparing,
     'Оформлен': styles.statusProcessed
-  }[status];
+  }[status] || '';
 
   return (
     <div className={styles.orderCard} onClick={onClick}>
-      <img src={image} alt="Order" className={styles.orderImage} />
+      <img 
+        src={image} 
+        alt="Order" 
+        className={styles.orderImage} 
+        onError={(e) => e.target.src = '/image/default-restaurant.png'} 
+      />
       
       <div className={styles.orderInfo}>
         <h3 className={styles.orderNumber}>{orderNumber}</h3>
@@ -68,7 +73,7 @@ const OrderCard = ({
 
 OrderCard.propTypes = {
   orderNumber: PropTypes.string.isRequired,
-  status: PropTypes.oneOf(['Готов к выдаче', 'Получен', 'Готовится', 'Оформлен']).isRequired,
+  status: PropTypes.string.isRequired,
   pickupTime: PropTypes.string.isRequired,
   date: PropTypes.string,
   image: PropTypes.string.isRequired,

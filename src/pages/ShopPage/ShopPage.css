@@ -2,13 +2,13 @@
   font-family: 'Inter', sans-serif;
   max-width: 1624px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 140px 35px;
 }
 
 .loading, .error {
   text-align: center;
   padding: 40px;
-  font-size: 18px;
+  font-size: clamp(16px, 1.5vw, 24px);
 }
 
 .shop-header {
@@ -17,10 +17,14 @@
   margin-bottom: 30px;
   position: relative;
   margin-top: 25px;
+  gap: 30px;
+  margin: 0 20px;
 }
 
 .back-button {
   position: absolute;
+  top: -30px;
+  left: -30px;
   background: #ffffff;
   border: 3px solid #000000;
   border-radius: 50px;
@@ -30,11 +34,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 64px;
-  height: 64px;
-  left: -40px;
-  top: -40px;
+  width: clamp(48px, 4vw, 64px);
+  height: clamp(48px, 4vw, 64px);
   z-index: 99;
+  flex-shrink: 0;
 }
 
 .back-button:hover {
@@ -42,13 +45,13 @@
 }
 
 .back-button svg {
-  width: 32px;
-  height: 30px;
+  width: clamp(24px, 2vw, 32px);
+  height: clamp(22px, 2vw, 30px);
 }
 
 .shop-products h2 {
   font-weight: 600;
-  font-size: 32px;
+  font-size: clamp(24px, 2vw, 32px);
   color: #2E2E2E;
   margin-bottom: 20px;
 }
@@ -59,31 +62,31 @@
 
 .category-title {
   font-weight: 600;
-  font-size: 24px;
+  font-size: clamp(20px, 1.5vw, 24px);
   color: #2E2E2E;
   margin-bottom: 15px;
   padding-bottom: 8px;
   border-bottom: 1px solid #e0e0e0;
 }
 
-.products-grid {
+.products-grid-2 {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(206px, 1fr));
-  gap: 26px;
+  grid-template-columns: repeat(auto-fill, minmax(clamp(180px, 14vw, 260px), 1fr));
+  gap: clamp(16px, 1.5vw, 26px);
   padding-bottom: 20px;
 }
 
 .no-products {
   text-align: center;
   padding: 40px;
-  font-size: 18px;
+  font-size: clamp(16px, 1.5vw, 20px);
   color: rgba(0, 0, 0, 0.5);
 }
 
 .shop-card-wrapper {
   width: 100%;
   max-width: 520px;
-  margin: 0 auto 0 0;
+  margin: 0;
 }
 
 .shop-card-wrapper .restaurant-card-container {
@@ -95,18 +98,18 @@
 .shop-card-wrapper .restaurant-card {
   height: auto;
   min-height: 120px;
-  padding: 20px;
+  padding: clamp(15px, 1.5vw, 20px);
 }
 
 .shop-card-wrapper .restaurant-image {
-  width: 80px;
-  height: 80px;
-  min-width: 80px;
-  max-width: 80px;
+  width: clamp(60px, 6vw, 80px);
+  height: clamp(60px, 6vw, 80px);
+  min-width: clamp(60px, 6vw, 80px);
+  max-width: clamp(60px, 6vw, 80px);
 }
 
 .shop-card-wrapper .restaurant-name {
-  font-size: 24px;
+  font-size: clamp(20px, 1.5vw, 24px);
   white-space: normal;
   -webkit-line-clamp: 2;
   line-clamp: 2;
@@ -117,57 +120,69 @@
 }
 
 .shop-card-wrapper .orders-count {
-  font-size: 20px;
+  font-size: clamp(16px, 1.25vw, 20px);
   margin: 0;
 }
 
 .shop-card-wrapper .favorite-button {
-  top: 20px;
-  right: 20px;
-  width: 28px;
-  height: 24px;
+  top: clamp(15px, 1.5vw, 20px);
+  right: clamp(15px, 1.5vw, 20px);
+  width: clamp(24px, 2vw, 28px);
+  height: clamp(20px, 1.5vw, 24px);
 }
 
-@media (max-width: 768px) {
-  .shop-card-wrapper {
-    max-width: 100%;
+/* Адаптация для 2K и больше */
+@media (min-width: 2000px) {
+  .shop-page {
+    max-width: 1800px;
+  }
+  
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 32px;
+  }
+}
+
+/* Адаптация для средних экранов */
+@media (max-width: 1200px) {
+  .shop-header {
+    flex-direction: column;
+    gap: 20px;
   }
   
   .back-button {
-    left: 0;
-    top: -20px;
-    width: 48px;
-    height: 48px;
+    align-self: flex-start;
   }
-  
-  .shop-card-wrapper .restaurant-card {
+}
+
+/* Адаптация для планшетов */
+@media (max-width: 768px) {
+  .shop-page {
     padding: 15px;
-  }
-  
-  .shop-card-wrapper .restaurant-image {
-    width: 60px;
-    height: 60px;
-    min-width: 60px;
-    max-width: 60px;
-  }
-  
-  .shop-card-wrapper .restaurant-name {
-    font-size: 20px;
-  }
-  
-  .shop-card-wrapper .orders-count {
-    font-size: 18px;
-    margin: 0;
   }
   
   .products-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
   }
+  
+  .shop-header {
+    margin-top: 15px;
+  }
 }
 
+/* Адаптация для мобильных */
 @media (max-width: 480px) {
   .products-grid {
     grid-template-columns: 1fr;
+  }
+  
+  .shop-card-wrapper .restaurant-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .shop-card-wrapper .restaurant-image {
+    margin-bottom: 10px;
   }
 }

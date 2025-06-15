@@ -30,6 +30,27 @@
   border-radius: 20px;
 }
 
+.expiration-timer {
+  position: absolute;
+  bottom: 2px;
+  left: 2px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 6px 10px;
+  border-radius: 20px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  z-index: 2;
+}
+
+.timer-text {
+  font-family: 'Inter', monospace;
+}
+
 .product-content {
   display: flex;
   flex-direction: column;
@@ -81,7 +102,7 @@
 
 .savings {
   font-weight: 500;
-  font-size: 16px;
+  font-size: 15px;
   line-height: 100%;
   color: rgba(0, 0, 0, 0.44);
   margin: 0;

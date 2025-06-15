@@ -4,10 +4,10 @@ import ProductCard from '../../components/ProductCard/ProductCard';
 import RestaurantCard from '../../components/RestaurantCard/RestaurantCard';
 import { productCategories } from '../../data/categories';
 import { useFavorites } from '../../contexts/FavoritesContext';
+import { CartProvider } from '../../contexts/CartContext';
 import { getUserRole } from '../../utils/auth';
 import './ShopPage.css';
 
-// Сопоставление enum категории с id локальной категории
 const categoryEnumToId = {
   BAKERY: 1,
   DESSERTS: 2,
@@ -30,8 +30,6 @@ const ShopPage = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const userRole = getUserRole();
-
   useEffect(() => {
     const fetchShopAndProducts = async () => {
       try {
@@ -51,13 +49,8 @@ const ShopPage = () => {
 
         setShop(data);
 
-        // Получаем товары из поля foods
         let foods = Array.isArray(data.foods) ? data.foods : [];
-
-        // Для обычного пользователя фильтруем только активные товары
-        if (userRole === 'ROLE_USER') {
-          foods = foods.filter(food => food.active === undefined || food.active === true);
-        }
+        foods = foods.filter(food => food.active === undefined || food.active === true);
 
         setProducts(foods);
       } catch (err) {
@@ -68,7 +61,7 @@ const ShopPage = () => {
     };
 
     fetchShopAndProducts();
-  }, [id, userRole]);
+  }, [id]);
 
   if (loading) {
     return <div>Загрузка...</div>;
@@ -82,7 +75,6 @@ const ShopPage = () => {
     return <div>Магазин не найден</div>;
   }
 
-  // Группируем товары по категориям с использованием сопоставления enum -> id
   const productsByCategory = products.reduce((acc, product) => {
     const categoryId = categoryEnumToId[product.category] || 9;
     const category = productCategories.find(c => c.id === categoryId) || { id: 9, name: 'Другое' };
@@ -121,7 +113,7 @@ const ShopPage = () => {
           Object.values(productsByCategory).map(({ category, products }) => (
             <div key={category.id} className="product-category">
               <h3 className="category-title">{category.name}</h3>
-              <div className="products-grid">
+              <div className="products-grid-2">
                 {products.map(product => (
                   <ProductCard key={product.id} product={product} />
                 ))}
@@ -136,4 +128,8 @@ const ShopPage = () => {
   );
 };
 
-export default ShopPage;
+export default () => (
+  <CartProvider>
+    <ShopPage />
+  </CartProvider>
+);

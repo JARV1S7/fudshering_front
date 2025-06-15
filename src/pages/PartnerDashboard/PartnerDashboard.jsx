@@ -15,6 +15,18 @@ export default function PartnerDashboard() {
   const [productModal, setProductModal] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const categoryEnumToId = {
+    BAKERY: 1,
+    DESSERTS: 2,
+    FREEZING: 3,
+    SALADS: 4,
+    BREAD: 5,
+    BOWLS: 6,
+    GARNISH: 7,
+    POKE: 8,
+    OTHER: 9,
+  };
+
   useEffect(() => {
   const fetchShopData = async () => {
     try {
@@ -27,46 +39,38 @@ export default function PartnerDashboard() {
           'Content-Type': 'application/json'
         }
       });
-        if (!resShop.ok) throw new Error('Ошибка загрузки магазина');
-        const shopData = await resShop.json();
+      if (!resShop.ok) throw new Error('Ошибка загрузки магазина');
+      const data = await resShop.json();
 
-        console.log('Вывод с бэка shopData:', shopData);
+      console.log('Вывод с бэка shopData:', data);
 
-        // shopData.currentUser - пользователь
-        // shopData.shop - массив с одним магазином
-        const shop = shopData.shop && shopData.shop.length > 0 ? shopData.shop[0] : null;
+      const shop = data.shops && data.shops.length > 0 ? data.shops[0] : null;
 
-        if (!shop) {
-          setCurrentShop(null);
-          setProducts([]);
-          return;
-        }
+      setCurrentShop(shop);
 
-        setCurrentShop(shop);
-        setProducts(shop.foods || []);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchShopData();
-  }, []);
-  // Группируем товары по категориям
-  const productsByCategory = products.reduce((acc, product) => {
-    const category = productCategories.find(c => c.name === product.category) || { id: 9, name: 'Другое' };
-    if (!acc[category.id]) {
-      acc[category.id] = {
-        category,
-        products: []
-      };
+      setProducts(data.foods || []);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
     }
-    acc[category.id].products.push(product);
-    return acc;
-  }, {});
+  };
 
-  // Обработчики действий с товарами
+  fetchShopData();
+}, []);
+  const productsByCategory = products.reduce((acc, product) => {
+      const categoryId = categoryEnumToId[product.category] || 9;
+      const category = productCategories.find(c => c.id === categoryId) || { id: 9, name: 'Другое' };
+      if (!acc[category.id]) {
+        acc[category.id] = {
+          category,
+          products: []
+        };
+      }
+      acc[category.id].products.push(product);
+      return acc;
+    }, {});
+
   const handleSaveProduct = (product) => {
     if (productModal.mode === 'add') {
       setProducts(prev => [...prev, product]);

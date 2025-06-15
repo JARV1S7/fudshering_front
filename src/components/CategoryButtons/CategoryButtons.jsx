@@ -4,14 +4,47 @@ import './CategoryButtons.css';
 
 const CategoryButtons = ({ isMainPage = false, isAuthPage = false }) => {
   const allCategories = [
-    { name: 'Выпечка', image: '/image/bakery2.png', isMain: true },
-    { name: 'Десерты', image: '/image/desserts.png' },
-    { name: 'Заморозка', image: '/image/frozen.png' },
-    { name: 'Салаты', image: '/image/salads.png' },
-    { name: 'Хлеб', image: '/image/bread.png' },
-    { name: 'Боулы', image: '/image/bowls.png' },
-    { name: 'Гарниры', image: '/image/sides.png' },
-    { name: 'Поке', image: '/image/poke.png' },
+    { 
+      name: 'Выпечка', 
+      image: isAuthPage ? '/image/bakery.png' : '/image/bakery2.png', 
+      isMain: true,
+      className: 'main-category'
+    },
+    { 
+      name: 'Десерты', 
+      image: '/image/desserts.png', 
+      className: 'sub-category first-sub' 
+    },
+    { 
+      name: 'Заморозка', 
+      image: '/image/frozen.png', 
+      className: 'sub-category' 
+    },
+    { 
+      name: 'Салаты', 
+      image: '/image/salads.png', 
+      className: 'sub-category' 
+    },
+    { 
+      name: 'Хлеб', 
+      image: '/image/bread.png', 
+      className: 'sub-category' 
+    },
+    { 
+      name: 'Боулы', 
+      image: '/image/bowls.png', 
+      className: 'sub-category' 
+    },
+    { 
+      name: 'Гарниры', 
+      image: '/image/sides.png', 
+      className: 'sub-category' 
+    },
+    { 
+      name: 'Поке', 
+      image: '/image/poke.png', 
+      className: 'sub-category' 
+    },
     ...(isMainPage ? [{ name: 'Другое', image: '/image/other.png' }] : []),
   ];
 
@@ -34,7 +67,8 @@ const CategoryButtons = ({ isMainPage = false, isAuthPage = false }) => {
             onClick={() => scrollToCategory(category.name)}
             className={`category-button main-page-${category.name.toLowerCase()}`}
             style={{ backgroundImage: `url(${category.image})` }}
-          />
+          >
+          </button>
         ))}
       </div>
     );
@@ -48,9 +82,10 @@ const CategoryButtons = ({ isMainPage = false, isAuthPage = false }) => {
           .map((category) => (
             <div
               key={category.name}
-              className={`category-button ${category.isMain ? 'main-category' : 'sub-category'}`}
+              className={`category-button ${category.className}`}
               style={{ backgroundImage: `url(${category.image})` }}
-            />
+            >
+            </div>
           ))}
       </div>
     );
@@ -64,9 +99,10 @@ const CategoryButtons = ({ isMainPage = false, isAuthPage = false }) => {
           <Link 
             key={category.name} 
             to={`/catalog/${category.name.toLowerCase()}`}
-            className={`category-button ${category.isMain ? 'main-category' : 'sub-category'}`}
+            className={`category-button ${category.className}`}
             style={{ backgroundImage: `url(${category.image})` }}
-          />
+          >
+          </Link>
         ))}
     </div>
   );

@@ -2,227 +2,232 @@
     display: flex;
     min-height: 100vh;
     font-family: 'Inter', sans-serif;
-  }
-  
-  /* Левая часть с категориями */
-  .categories-section {
+}
+
+/* Левая часть с категориями */
+.categories-section {
     width: 50%;
-    padding: 0.5px;
-    position: relative;
-  }
-  
-  .main-title-container {
-    width: 398px;
-    height: 51px;
-    top: 181px;
-    left: 129px;
-    position: absolute;
-    margin: 0 auto 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+.categories-wind{
+  width: 100%;
+}
+
+.main-title-container {
+    width: 58%;
+    max-width: 465px;
+    margin: 0 0 0 20px;
     border-radius: 20px;
     background-color: #FFDCE5;
-  }
-  
-  .main-title {
-    font-size: 32px;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    position: relative;
+    top: 5.3%;
+}
+
+.main-title {
+    font-size: clamp(16px, 2.08vw, 28px);
     font-weight: 400;
-    padding: 6px;
     color: #000;
     text-align: center;
     margin: 0;
-  }
-  
-  /* Правая часть с формой */
-  .form-section {
-    width: 50%;
-    align-content: center;
-    justify-content: center;
-    display: grid;
-  }
-  
-  .form-auth{
-    width: 80.72%;
-  }
+}
 
-  .auth-header {
-    width: 430px;
-    height: 120px;
-    margin-bottom: 72px;
+/* Правая часть с формой */
+.form-section-1 {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.form-auth {
+    width: 50%;
+    max-width: 500px;
+}
+
+.auth-header {
+    width: 100%;
+    margin-bottom: 3rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 12px;
-    align-items: center;
-  }
-  
-  .auth-header h2 {
-    width: 390px;
-    height: 40px;
-    justify-content: center;
-    font-size: 36px;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.auth-header h2 {
+    width: 100%;
+    font-size: clamp(28px, 3vw, 36px);
     font-weight: 600;
     margin: 0;
-  }
-  
-  .auth-header p {
-    width: 390px;
-    height: 50px;
-    padding: 0 20px 20px;
+}
+
+.auth-header p {
+    width: 100%;
     font-weight: 400;
-    font-size: 18px;
+    font-size: clamp(14px, 1.5vw, 18px);
     color: #000000;
     margin: 0;
     opacity: 0.4;
     border-bottom: 1px solid #999;
-  }
-  
-  .auth-form {
-    width: 390px;
-    padding: 0 20px;
-  }
-  
-  .input-group {
-    margin-bottom: 32px;
-    width: 390px;
-  }
-  
-  .input-group input {
-    width: 356px;
-    height: 25px;
-    padding: 12px 16px;
+    padding-bottom: 1rem;
+}
+
+.auth-form {
+    width: 100%;
+    padding: 0;
+}
+
+.input-group {
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 0.75rem 1rem;
     border: 1px solid #ddd;
     border-radius: 4px;
-    font-size: 16px;
-  }
-  
-  .submit-block {
-    width: 390px;
-    height: 114px;
+    font-size: clamp(14px, 1.5vw, 16px);
+    box-sizing: border-box;
+}
+
+.submit-block {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    margin-top: 32px;
-  }
-  
-  .submit-block button {
+    gap: 0.75rem;
+    margin-top: 2rem;
+}
+
+.submit-block button {
     width: 100%;
-    padding: 14px;
+    padding: 0.875rem;
     background: #000000;
     color: white;
     border: none;
     border-radius: 4px;
-    font-size: 16px;
+    font-size: clamp(14px, 1.5vw, 16px);
     font-weight: 600;
     cursor: pointer;
-  }
-  
-  .submit-block p {
-    font-size: 12px;
+}
+
+.submit-block p {
+    font-size: clamp(10px, 1.2vw, 12px);
     color: #999;
     text-align: center;
     margin: 0;
-  }
+}
 
-  .submit-block p strong{
+.submit-block p strong {
     color: #000;
     font-weight: 500;
-  }
-  
-  .divider {
+}
+
+.divider {
     display: flex;
     align-items: center;
-    margin: 18px 0;
+    margin: 1.5rem 0;
     opacity: 0.4;
-    background: none;
-    background-color: #ffffff00;
-  }
-  
-  .divider::before {
-    width: 430px;
+}
+
+.divider::before {
     content: "";
     flex: 1;
     height: 1px;
     background: #999;
-  }
-  
-  .divider-with-text {
-    gap: 16px;
-    height: 28px;
-    width: 390px;
-    padding: 0 20px;
-    margin-bottom: 40px;
-  }
-  
-  .divider-with-text::before,
-  .divider-with-text::after {
+}
+
+.divider-with-text {
+    gap: 1rem;
+    padding: 0;
+    margin-bottom: 2.2rem;
+}
+
+.divider-with-text::before,
+.divider-with-text::after {
     content: "";
     flex: 1;
     height: 1px;
     background: #999;
-  }
-  
-  .google-btn {
-    width: 390px;
-    height: 62px;
+}
+
+.google-btn {
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 0.5rem;
     border: 1px solid #ddd;
     border-radius: 4px;
     background: white;
-    font-size: 16px;
+    font-size: clamp(14px, 1.5vw, 16px);
     cursor: pointer;
-    padding: 12px 16px;
-    margin: 0 20px;
-  }
-  
-  .google-btn img {
+    padding: 0.75rem 1rem;
+    margin: 0;
+}
+
+.google-btn img {
     width: 20px;
     height: 20px;
-  }
-  
-  .auth-link{
-    width: 280px;
-    height: 20px;
+}
+
+.auth-link {
+    width: 100%;
     display: flex;
     justify-content: center;
-    gap: 8px;
-    margin: 50px auto 0;
-    font-size: 14px;
+    gap: 0.5rem;
+    margin: 2rem auto 0;
+    font-size: clamp(12px, 1.2vw, 14px);
     color: #999;
-  }
+}
 
-  .auth-link a {
+.auth-link a {
     color: #000000;
     text-decoration: none;
     font-weight: 500;
-  }
+}
 
-  .auth-error {
+.auth-error {
     color: #ff4444;
     background: #ffebee;
-    padding: 12px;
+    padding: 0.75rem;
     border-radius: 4px;
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
     text-align: center;
-  }
+    font-size: clamp(12px, 1.3vw, 14px);
+}
 
-  .submit-block button:disabled {
+.submit-block button:disabled {
     background: #cccccc;
     cursor: not-allowed;
-  }
+}
 
-  .skip-link {
-    display: block;
-    text-align: center;
-    margin-top: 15px;
-    color: #666;
-    text-decoration: underline;
-    font-size: 14px;
-  }
-  
-  h3 {
-    font-size: 18px;
-    margin: 20px 0 10px;
-    color: #333;
-  }
+/* Медиа-запросы для мобильных устройств */
+@media (max-width: 768px) {
+    .auth-container {
+        flex-direction: column;
+    }
+    
+    .categories-section,
+    .form-section-1 {
+        width: 100%;
+        padding: 1.5rem;
+    }
+    
+    .main-title-container {
+        margin-bottom: 2rem;
+    }
+    
+    .auth-header {
+        margin-bottom: 2rem;
+    }
+}

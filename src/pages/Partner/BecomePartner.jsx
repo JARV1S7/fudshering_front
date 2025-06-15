@@ -24,7 +24,6 @@ const BecomePartner = () => {
   const mapRef = useRef(null);
   const navigate = useNavigate();
 
-  // Загрузка email и других данных пользователя с бэкенда при монтировании
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -44,7 +43,6 @@ const BecomePartner = () => {
           setFormData(prev => ({
             ...prev,
             email: data.currentUser.email || '',
-            // Можно при желании подгрузить и другие поля, если нужно
           }));
         }
       } catch (err) {
@@ -55,7 +53,6 @@ const BecomePartner = () => {
     fetchUserData();
   }, []);
 
-  // Регулировка высоты textarea
   const adjustTextareaHeight = () => {
     if (textareaRef.current) {
       textareaRef.current.style.height = 'auto';
@@ -67,7 +64,6 @@ const BecomePartner = () => {
     adjustTextareaHeight();
   }, [formData.description]);
 
-  // Загрузка карты (оставляем без изменений)
   useEffect(() => {
     if (step === 3 && !mapLoaded) {
       const script = document.createElement('script');
@@ -126,7 +122,6 @@ const BecomePartner = () => {
     fileInputRef.current.click();
   };
 
-  // Отправка данных магазина и обновленного email на сервер
   const sendShopData = async () => {
   const token = localStorage.getItem('authToken');
 
@@ -136,25 +131,6 @@ const BecomePartner = () => {
     }
 
     try {
-      // // Логируем данные email перед отправкой
-      // console.log('Отправляем email на сервер:', formData.email);
-      // const emailPayload = { email: formData.email };
-      // const emailRes = await fetch('http://localhost:8080/shops', {
-      //   method: 'PUT',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     'Authorization': `Bearer ${token}`
-      //   },
-      //   body: JSON.stringify(emailPayload)
-      // });
-
-      // console.log('Ответ сервера по обновлению email:', emailRes.status);
-      // if (!emailRes.ok) {
-      //   const errorData = await emailRes.json();
-      //   throw new Error(errorData.message || 'Ошибка обновления email');
-      // }
-
-      // Логируем данные магазина перед отправкой
       const payload = {
         name: formData.shopName,
         description: formData.description,
@@ -227,7 +203,7 @@ const BecomePartner = () => {
           <form className="become-form" onSubmit={handleSubmit}>
             <h3>О магазине</h3>
             {['Название', 'Ссылка на сайт/соцсети'].map((field) => (
-              <div className="input-group" key={field}>
+              <div className="input-group-2" key={field}>
                 <input
                   type="text"
                   name={field === 'Название' ? 'shopName' : 'website'}
@@ -240,7 +216,7 @@ const BecomePartner = () => {
             ))}
 
             <h4>Контакты</h4>
-              <div className="input-group">
+              <div className="input-group-2">
                 <input
                   type="email"
                   name="email"
@@ -250,7 +226,7 @@ const BecomePartner = () => {
                   required
                 />
               </div>
-              <div className="input-group">
+              <div className="input-group-2">
                 <input
                   type="tel"
                   name="phone"
@@ -260,7 +236,7 @@ const BecomePartner = () => {
                   required
                 />
               </div>
-            <button type="submit" className="continue-button">
+            <button type="submit" className="continue-button-2">
               Продолжить
             </button>
           </form>
@@ -322,7 +298,7 @@ const BecomePartner = () => {
               </div>
             </div>
 
-            <button type="submit" className="continue-button">
+            <button type="submit" className="continue-button-2">
               Продолжить
             </button>
           </form>
@@ -332,22 +308,11 @@ const BecomePartner = () => {
           <form className="become-form-3" onSubmit={handleSubmit}>
             <h3>Расположение заведения</h3>
             
-            {formData.logo && (
-              <div className="location-logo-preview">
-                <img 
-                  src={URL.createObjectURL(formData.logo)} 
-                  alt="Логотип магазина" 
-                  className="location-logo-image"
-                />
-              </div>
-            )}
-            
             <div className="map-container">
         <div id="map" style={{ height: '100%', width: '100%' }}></div>
       </div>
       
-            {/* Добавляем поле для ввода адреса */}
-            <div className="input-group">
+            <div className="input-group-2">
               <input
                 type="text"
                 name="manualAddress"
@@ -358,7 +323,7 @@ const BecomePartner = () => {
               />
             </div>
 
-            <button type="submit" className="continue-button" disabled={!formData.location}>
+            <button type="submit" className="continue-button-2" disabled={!formData.location}>
               Продолжить
             </button>
           </form>

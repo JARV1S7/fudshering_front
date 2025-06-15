@@ -43,7 +43,7 @@
 
 .savingsText {
   font-weight: 400;
-  font-size: 16px;
+  font-size: 13px;
   line-height: 100%;
   color: rgba(0, 0, 0, 0.4);
   margin-bottom: 10px;
@@ -125,6 +125,18 @@
   text-decoration: line-through;
   color: rgba(0, 0, 0, 0.125);
   margin-right: 6px;
+}
+
+@media (min-width: 1440px) and (max-width: 1919px) {
+  .savingsText{
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .cartItem{
+    max-width: 350px;
+  }
 }
 
 @media (max-width: 768px) {

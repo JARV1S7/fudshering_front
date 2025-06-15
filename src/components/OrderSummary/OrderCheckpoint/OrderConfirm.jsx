@@ -1,6 +1,25 @@
 import React from 'react';
 import styles from './OrderConfirmation.module.css';
 
+const createOrder = async (orderData) => {
+  const token = localStorage.getItem('authToken');
+  const response = await fetch('http://localhost:8080/orders', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(orderData)
+  });
+
+  if (!response.ok) {
+    throw new Error('Ошибка при создании заказа');
+  }
+
+  const createdOrder = await response.json();
+  return createdOrder;
+};
+
 const OrderConfirmation = ({ orderNumber, onClose }) => {
   return (
     <div className={styles.confirmationBlock}>

@@ -122,7 +122,6 @@ export const CartProvider = ({ children }) => {
   };
 
   // 5. Обновление количества товара
-  // Увеличение количества товара по cartItemId
   const increaseQuantity = async (cartItemId) => {
     const token = localStorage.getItem('authToken');
     console.log('Токен для увеличения количества:', token);
@@ -198,7 +197,7 @@ export const CartProvider = ({ children }) => {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (!res.ok) throw new Error('Ошибка при удалении товара из корзины');
-      await loadCartFromServer(); // обновляем корзину после удаления
+      await loadCartFromServer();
     } catch (error) {
       alert(error.message);
     }

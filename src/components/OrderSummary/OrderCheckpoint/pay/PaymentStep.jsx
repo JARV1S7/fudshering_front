@@ -5,8 +5,8 @@ import styles from './PaymentStep.module.css';
 const PaymentStep = ({ paymentMethod, setPaymentMethod, onNext }) => {
   const [cards, setCards] = useState([{
     id: 1,
-    bank: 'Sberbank', // Пример карты Сбера
-    lastDigits: '5536', // Начинается с БИНа Сбера
+    bank: 'Sberbank',
+    lastDigits: '5536',
     type: 'MIR',
     fullNumber: '5536000011112222',
     expiry: '12/25',
@@ -22,7 +22,6 @@ const PaymentStep = ({ paymentMethod, setPaymentMethod, onNext }) => {
   });
   const [showMenuForCard, setShowMenuForCard] = useState(null);
 
-  // Форматирование номера карты (добавление пробелов каждые 4 цифры)
   const formatCardNumber = (value) => {
     const v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
     const matches = v.match(/\d{4,16}/g);
@@ -36,7 +35,6 @@ const PaymentStep = ({ paymentMethod, setPaymentMethod, onNext }) => {
     return parts.length ? parts.join(' ') : value;
   };
 
-  // Форматирование срока действия (добавление / после 2 цифр)
   const formatExpiry = (value) => {
     const v = value.replace(/[^0-9]/g, '');
     if (v.length >= 3) {
@@ -45,7 +43,6 @@ const PaymentStep = ({ paymentMethod, setPaymentMethod, onNext }) => {
     return value;
   };
 
-  // Ограничение ввода CVV (только 3 цифры)
   const formatCvv = (value) => {
     return value.replace(/[^0-9]/g, '').substring(0, 3);
   };
@@ -115,10 +112,9 @@ const detectBankByBin = (cardNumber) => {
     // Райффайзенбанк
     '4627': 'Raiffeisen', '5189': 'Raiffeisen',
     
-    // Добавьте другие банки по необходимости
   };
 
-    return bankBins[bin] || 'MIR'; // Если БИН не найден - считаем картой МИР
+    return bankBins[bin] || 'MIR';
   };
 
   const handleSubmitCard = () => {

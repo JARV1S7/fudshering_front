@@ -2,12 +2,14 @@
   display: flex;
   min-height: 100vh;
   margin: 0 80px;
+  gap: 30px;
+  padding: 95px 0;
 }
 
 .ordersList {
   flex: 1;
-  padding: 30px;
   background-color: white;
+  border-radius: 20px;
 }
 
 .pageTitle {
@@ -18,10 +20,11 @@
   color: #2E2E2E;
 }
 
-.OrderBack{
+.OrderBack {
   display: flex;
   width: 42.5%;
   height: auto;
+  max-height: 850px;
   background: #B2DDFF;
   background-image: url(/public/image/cart-baground.png);
   background-size: cover;
@@ -113,7 +116,7 @@
   padding: 10px 0;
   border-bottom: 1px solid #f0f0f0;
   font-family: 'Inter', sans-serif;
-  font-size: 16px;
+  font-size: 15px;
 }
 
 .orderSummary {
@@ -165,7 +168,7 @@
   background-color: #1E1E1E;
 }
 
-/* Стили для статусов (должны совпадать с OrderCard.module.css) */
+/* Стили для статусов */
 .statusReady {
   color: #00A410;
   background-color: rgba(0, 164, 16, 0.1);
@@ -184,4 +187,186 @@
 .statusProcessed {
   color: #FA5801;
   background-color: rgba(250, 88, 1, 0.1);
+}
+
+/* Адаптивные медиа-запросы */
+
+/* Для экранов 2K (2560px) и больше */
+@media (min-width: 2560px) {
+  .pageContainer {
+    margin: 0 15%;
+    gap: 40px;
+  }
+  
+  .pageTitle {
+    font-size: 28px;
+    margin-bottom: 40px;
+  }
+  
+  .OrderBack {
+    width: 45%;
+    max-height: 950px;
+    padding: 40px;
+  }
+  
+  .orderDetails {
+    padding: 70px;
+  }
+  
+  .detailsHeader h2 {
+    font-size: 28px;
+  }
+  
+  .customerInfo h3 {
+    font-size: 24px;
+  }
+  
+  .orderItems h4 {
+    font-size: 22px;
+  }
+  
+  .orderItem,
+  .summaryRow {
+    font-size: 18px;
+  }
+  
+  .summaryRowTotal {
+    font-size: 20px;
+  }
+  
+  .actionButton {
+    padding: 18px;
+    font-size: 18px;
+    border-radius: 12px;
+  }
+  
+  .statusBadge {
+    font-size: 18px;
+    padding: 7px 18px;
+  }
+}
+
+/* Для больших ноутбуков (1440px - 1919px) */
+@media (min-width: 1440px) and (max-width: 1919px) {
+  .pageContainer {
+    margin: 0 10%;
+  }
+  
+  .OrderBack {
+    width: 45%;
+  }
+}
+
+/* Для стандартных ноутбуков (1024px - 1439px) */
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .pageContainer {
+    margin: 0 5%;
+  }
+  
+  .OrderBack {
+    width: 47%;
+  }
+  
+  .orderDetails {
+    padding: 50px;
+  }
+}
+
+/* Для планшетов (768px - 1023px) */
+@media (max-width: 1023px) {
+  .pageContainer {
+    flex-direction: column;
+    margin: 0 5%;
+    gap: 20px;
+  }
+  
+  .ordersList,
+  .OrderBack {
+    width: 100%;
+  }
+  
+  .OrderBack {
+    max-height: none;
+    padding: 25px;
+  }
+  
+  .orderDetails {
+    width: 90%;
+    padding: 40px;
+  }
+}
+
+/* Для мобильных устройств (480px - 767px) */
+@media (max-width: 767px) {
+  .pageContainer {
+    margin: 0;
+    padding: 15px;
+  }
+  
+  .ordersList {
+    padding: 20px;
+  }
+  
+  .orderDetails {
+    padding: 30px;
+    width: 100%;
+  }
+  
+  .pageTitle {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+  
+  .detailsHeader h2 {
+    font-size: 22px;
+  }
+  
+  .customerInfo h3 {
+    font-size: 18px;
+  }
+  
+  .orderItems h4 {
+    font-size: 16px;
+  }
+  
+  .orderItem,
+  .summaryRow {
+    font-size: 14px;
+  }
+  
+  .summaryRowTotal {
+    font-size: 16px;
+  }
+  
+  .actionButton {
+    padding: 12px;
+    font-size: 14px;
+  }
+  
+  .statusBadge {
+    font-size: 14px;
+  }
+}
+
+/* Для маленьких мобильных устройств (до 479px) */
+@media (max-width: 479px) {
+  .orderDetails {
+    padding: 20px;
+  }
+  
+  .pageTitle {
+    font-size: 20px;
+  }
+  
+  .detailsHeader h2 {
+    font-size: 20px;
+  }
+  
+  .actionButtons {
+    gap: 10px;
+  }
+  
+  .orderSummary {
+    padding: 15px;
+  }
 }

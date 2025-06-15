@@ -5,7 +5,6 @@ import './PersonalInfo.css';
 const PersonalInfo = () => {
   const navigate = useNavigate();
 
-  // Загружаем данные регистрации из localStorage
   const savedRegistrationData = JSON.parse(localStorage.getItem('registrationData')) || {};
 
   const [formData, setFormData] = useState({
@@ -48,7 +47,6 @@ const PersonalInfo = () => {
   const handleSubmit = async (e) => {
   e.preventDefault();
 
-  // Создаем копию formData без поля photo
   const { photo, ...dataToSend } = formData;
 
   console.log('Отправляем данные регистрации с личной информацией (без фото):', dataToSend);
@@ -76,7 +74,6 @@ const PersonalInfo = () => {
         console.log('Токен сохранён в localStorage:', data.token);
       }
 
-      // Очистка registrationData после успешной регистрации
       localStorage.removeItem('registrationData');
 
       navigate('/');
@@ -88,7 +85,6 @@ const PersonalInfo = () => {
   return (
     <div className="personal-info-container">
       <div className="info-window">
-        <Link to="/" className="skip-button">Пропустить</Link>
         
         <div className="profile-photo-container">
           <div 

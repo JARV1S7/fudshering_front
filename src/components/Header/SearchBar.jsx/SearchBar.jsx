@@ -8,7 +8,6 @@ const SearchBar = ({ isPartnerPage }) => {
   const searchRef = useRef(null);
   const highlightRefs = useRef([]);
 
-  // Очищаем предыдущие подсветки
   const clearHighlights = () => {
     highlightRefs.current.forEach(({ marker }) => {
       if (marker && marker.parentNode) {
@@ -27,9 +26,7 @@ const SearchBar = ({ isPartnerPage }) => {
     const regex = new RegExp(`(${escapeRegExp(searchText)})`, 'gi');
     let hasHighlight = false;
 
-    // Рекурсивно обходим все текстовые узлы
     const walk = (node) => {
-      // Пропускаем элементы, которые не должны быть обработаны
       if (node.nodeType === Node.ELEMENT_NODE && 
           ['SCRIPT', 'STYLE', 'TEXTAREA', 'INPUT', 'BUTTON'].includes(node.tagName)) {
         return;
@@ -48,12 +45,10 @@ const SearchBar = ({ isPartnerPage }) => {
           matches.forEach((match) => {
             const index = text.indexOf(match, lastIndex);
             
-            // Добавляем текст до совпадения
             if (index > lastIndex) {
               fragment.appendChild(document.createTextNode(text.substring(lastIndex, index)));
             }
             
-            // Добавляем подсвеченное совпадение
             const span = document.createElement('span');
             span.className = styles.highlight;
             span.textContent = match;
@@ -62,18 +57,15 @@ const SearchBar = ({ isPartnerPage }) => {
             lastIndex = index + match.length;
           });
           
-          // Добавляем оставшийся текст
           if (lastIndex < text.length) {
             fragment.appendChild(document.createTextNode(text.substring(lastIndex)));
           }
           
-          // Сохраняем оригинальный узел для восстановления
           highlightRefs.current.push({
             marker: document.createComment('highlight-marker'),
             node: node
           });
           
-          // Заменяем текстовый узел на фрагмент с подсветкой
           parent.insertBefore(highlightRefs.current[highlightRefs.current.length - 1].marker, node);
           parent.replaceChild(fragment, node);
         }
@@ -103,7 +95,6 @@ const SearchBar = ({ isPartnerPage }) => {
 
     if (found) {
       setSearchMessage('');
-      // Прокручиваем к первому подсвеченному элементу
       const firstHighlight = document.querySelector(`.${styles.highlight}`);
       if (firstHighlight) {
         firstHighlight.scrollIntoView({ 
@@ -125,7 +116,6 @@ const SearchBar = ({ isPartnerPage }) => {
 
   useEffect(() => {
     return () => {
-      // Очищаем подсветки при размонтировании компонента
       clearHighlights();
     };
   }, []);

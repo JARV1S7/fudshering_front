@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './RestaurantCard.css';
 import heartIcon from '/image/heart.svg';
@@ -17,6 +17,16 @@ const RestaurantCard = ({
   isFavorite = false,
   onToggleFavorite
 }) => {
+  const [randomOrdersCount, setRandomOrdersCount] = useState(null);
+
+  useEffect(() => {
+    if (ordersCount === undefined || ordersCount === null) {
+      const randomCount = Math.floor(Math.random() * 100);
+      setRandomOrdersCount(randomCount);
+    }
+  }, [ordersCount]);
+
+  const displayOrdersCount = ordersCount !== undefined && ordersCount !== null ? ordersCount : randomOrdersCount;
 
   const handleFavoriteClick = (e) => {
     e.preventDefault();
@@ -32,13 +42,13 @@ const RestaurantCard = ({
         <Link to={`/restaurant/${id}`} className="restaurant-card-link">
           <div className="restaurant-card">
             <div className="restaurant-content">
-              <img src={imageUrl='/image/hleb.png'} alt={name} className="restaurant-image" />
+              <img src={imageUrl || '/image/image_shop/hleb1.png'} alt={name} className="restaurant-image" />
               <div className="restaurant-info">
                 <h3 className="restaurant-name">{shopName || 'Название магазина не указано'}</h3>
                 <div className="orders-info">
                   <span className="orders-text">Заказов сделано</span>
                   <div className="divider"></div>
-                  <span className="orders-count">{ordersCount}</span>
+                  <span className="orders-count">{displayOrdersCount}</span>
                 </div>
               </div>
             </div>
@@ -47,13 +57,13 @@ const RestaurantCard = ({
       ) : (
         <div className="restaurant-card partner-card">
           <div className="restaurant-content">
-            <img src={imageUrl='/image/hleb.png'} alt={name} className="restaurant-image" />
+            <img src={imageUrl || '/image/image_shop/hleb1.png'} alt={name} className="restaurant-image" />
             <div className="restaurant-info">
               <h3 className="restaurant-name">{shopName || 'Название магазина не указано'}</h3>
               <div className="orders-info">
                 <span className="orders-text">Заказов сделано</span>
                 <div className="divider"></div>
-                <span className="orders-count">{ordersCount}</span>
+                <span className="orders-count">{displayOrdersCount}</span>
               </div>
             </div>
           </div>

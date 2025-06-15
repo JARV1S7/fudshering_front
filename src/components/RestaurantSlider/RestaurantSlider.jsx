@@ -31,7 +31,6 @@ const RestaurantSlider = () => {
         console.log('Ответ сервера:', response);
         console.log('Данные магазинов:', data);
 
-        // Проверяем и используем data.shops или пустой массив, если его нет
         setShops(data.shops || []);
 
       } catch (error) {
@@ -82,7 +81,7 @@ const RestaurantSlider = () => {
               name={shop.name}
               ordersCount={shop.ordersCount}
               imageUrl={shop.imageUrl}
-              shopName={shop.name} // передаем название магазина напрямую
+              shopName={shop.name}
               isFavorite={favorites.includes(shop.id)}
               onToggleFavorite={toggleFavorite}
             />

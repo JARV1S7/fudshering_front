@@ -3,14 +3,25 @@
 }
 
 .mainHeader {
+  position: fixed;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 15px 20px;
-  background-color: white;
-  position: relative;
-  z-index: 100;
+  top: 0;
+  left: 0;
   width: 97.87%;
+  transition: top 0.3s ease, box-shadow 0.3s ease;
+  z-index: 1000;
+  background-color: white;
+}
+
+.visible {
+  top: 0;
+}
+
+.hidden {
+  top: -100px; /* или высота вашего хедера */
 }
 
 .burgerMenu {
@@ -263,7 +274,7 @@
   width: 151px;
   height: 57px;
   border-radius: 8px;
-  background: #F8F8F8;
+  background: #f3f3f3;
   display: flex;
   flex-direction: column;
   align-items: center;

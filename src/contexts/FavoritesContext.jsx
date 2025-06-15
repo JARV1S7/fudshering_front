@@ -5,7 +5,6 @@ const FavoritesContext = createContext();
 export const FavoritesProvider = ({ children }) => {
   const [favorites, setFavorites] = useState([]);
 
-  // Загрузка избранного из localStorage при инициализации
   useEffect(() => {
     const savedFavorites = localStorage.getItem('favorites');
     if (savedFavorites) {
@@ -13,7 +12,6 @@ export const FavoritesProvider = ({ children }) => {
     }
   }, []);
 
-  // Сохранение избранного в localStorage при изменении
   useEffect(() => {
     localStorage.setItem('favorites', JSON.stringify(favorites));
   }, [favorites]);

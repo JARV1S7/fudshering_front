@@ -5,7 +5,6 @@ export async function fetchFoods() {
   }
   const foods = await response.json();
 
-  // Преобразуем данные под фронтенд
   return foods.map(food => ({
     id: food.id,
     shopId: food.shop?.id || 0,
@@ -13,13 +12,12 @@ export async function fetchFoods() {
     name: food.name,
     discountedPrice: food.discountPrice,
     originalPrice: food.originalPrice,
-    image: mapImage(food.name), // функция сопоставления имени товара и локального пути к картинке
+    image: mapImage(food.name),
     isVisible: food.isActive,
   }));
 }
 
 function mapCategory(categoryEnum) {
-  // Пример сопоставления enum с id категории
   const map = {
     BAKERY: 1,
     READY_MEALS: 2,
@@ -33,10 +31,8 @@ function mapCategory(categoryEnum) {
 }
 
 function mapImage(productName) {
-  // Пример: возвращаем путь к локальному изображению по имени
   const images = {
     'Мексиканский бургер': '/image/burger.png',
-    // добавьте остальные соответствия
   };
   return images[productName] || '/image/default.png';
 }

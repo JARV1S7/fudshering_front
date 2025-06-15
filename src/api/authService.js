@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://your-backend-url.com/api'; // замените на реальный URL
+const API_BASE_URL = 'https://your-backend-url.com/api';
 
 export async function login(email, password) {
   const response = await fetch(`${API_BASE_URL}/login`, {
@@ -10,7 +10,7 @@ export async function login(email, password) {
     const errorData = await response.json();
     throw new Error(errorData.message || 'Ошибка входа');
   }
-  return response.json(); // ожидается { token, user }
+  return response.json();
 }
 
 export async function register(userData) {

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useCart } from '../../contexts/CartContext';
 import CartItem from '../../components/CartItem/CartItem';
 import OrderSummary from '../../components/OrderSummary/OrderSummary';
+import { CartProvider } from '../../contexts/CartContext';
 import styles from './Cart.module.css';
 
 const CartPage = () => {
@@ -62,4 +63,8 @@ const CartPage = () => {
   );
 };
 
-export default CartPage;
+export default () => (
+  <CartProvider>
+    <CartPage />
+  </CartProvider>
+);

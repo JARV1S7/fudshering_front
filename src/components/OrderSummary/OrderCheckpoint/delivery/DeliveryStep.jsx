@@ -20,7 +20,6 @@ const DeliveryStep = ({
   const handleDeliveryChange = (method) => {
     console.log('Changing delivery method to:', method);
     setDeliveryMethod(method);
-    // Обновляем адрес при смене метода доставки
     setTempAddress(
       method === 'courier' 
         ? 'ул. Июльская, д.19, кв.56, домофон 3, подъезд 4, этаж 5'
@@ -38,12 +37,10 @@ const DeliveryStep = ({
 
   const handleSaveCity = () => {
     setIsEditingCity(false);
-    // Здесь можно добавить логику сохранения города
   };
 
   const handleSaveAddress = () => {
     setIsEditingAddress(false);
-    // Здесь можно добавить логику сохранения адреса
     setContactInfo(prev => ({ ...prev, address: tempAddress }));
   };
 

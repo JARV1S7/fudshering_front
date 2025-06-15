@@ -3,13 +3,14 @@
   flex-direction: column;
   font-family: 'Inter', sans-serif;
   gap: 20px;
-  max-width: 1920px;
+  max-width: 2564px;
   margin: 0 82px 0 93px;
-  padding: 20px;
+  padding: 120px 20px;
 }
 
 .dashboard-content {
   background: #fff;
+  display: contents;
 }
 
 .products-section {
@@ -35,7 +36,6 @@
 }
 
 .delete-mode-header h2{
-  font-family: Inter;
   font-weight: 600;
   font-size: 36px;
   line-height: 110.00000000000001%;
@@ -46,11 +46,11 @@
 .delete-selected-btn {
   background: #ffe100;
   color: rgb(0, 0, 0);
-  width: 15.9%;
-  aspect-ratio: 4.399/1;
+  width: 18%;
+  aspect-ratio: 5 / 1;
   border: none;
   border-radius: 20px;
-  font-size: 19px;
+  font-size: clamp(10px, 1.25vw, 19px);
   padding: 18px 20px;
   font-weight: 400;
   cursor: pointer;

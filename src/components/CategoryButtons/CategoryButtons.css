@@ -1,13 +1,12 @@
 .categories-container {
-  display: grid;
-  gap: 16px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* Основные стили контейнера */
 .categories-container.main-layout {
   position: relative;
-  width: 100%;
-  max-width: 1623px;
+  width: 90%;
+  max-width: 1800px;
   aspect-ratio: 1623/525;
 }
 
@@ -17,10 +16,12 @@
   align-items: center;
   justify-content: center;
   border: none;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   background-size: cover;
+  background-position: center;
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .categories-container.main-layout .category-button:hover {
@@ -29,239 +30,179 @@
 }
 
 .categories-container.main-layout .main-page-выпечка {
-  width: 31.1%;
-  height: 46.79%;
+  width: 31.1%;    
+  aspect-ratio: 2.055 / 1;
   top: 0;
   left: 0;
 }
 
 .categories-container.main-layout .main-page-десерты {
   width: 15.135%;
-  height: 46.79%;
   top: 0;
   left: 33.2%;
+  aspect-ratio: 1 / 1;
 }
 
 .categories-container.main-layout .main-page-заморозка {
   width: 15.135%;
-  height: 46.79%;
+  aspect-ratio: 1 / 1;
   top: 0;
   left: 50.5%;
 }
 
 .categories-container.main-layout .main-page-салаты {
   width: 15.135%;
-  height: 46.79%;
+  aspect-ratio: 1 / 1;
   top: 0;
   left: 67.7%;
 }
 
 .categories-container.main-layout .main-page-хлеб {
   width: 15.135%;
-  height: 46.79%;
+  aspect-ratio: 1 / 1;
   top: 0;
   left: 84.88%;
 }
 
 .categories-container.main-layout .main-page-боулы {
   width: 15.135%;
-  height: 46.79%;
-  top: 52.2%;
+  aspect-ratio: 1 / 1;
+  top: 50%;
   left: 0;
 }
 
 .categories-container.main-layout .main-page-гарниры {
   width: 15.135%;
-  height: 46.79%;
-  top: 52.2%;
+  aspect-ratio: 1 / 1;
+  top: 50%;
   left: 17.4%;
 }
 
 .categories-container.main-layout .main-page-поке {
   width: 15.135%;
-  height: 46.79%;
-  top: 52.2%;
+  aspect-ratio: 1 / 1;
+  top: 50%;
   left: 34.7%;
 }
 
 .categories-container.main-layout .main-page-другое {
   width: 48.32%;
-  height: 46.79%;
-  top: 52.2%;
+  aspect-ratio: 3.179 / 1;
+  top: 50%;
   left: 51.7%;
 }
 
-@media (max-width: 1200px) {
-  .categories-container.main-layout {
-    height: 400px;
-  }
-}
-
-@media (max-width: 992px) {
-  .categories-container.main-layout {
-    height: 350px;
-  }
-  
-  .category-button span {
-    font-size: 14px !important;
-  }
-}
-
-@media (max-width: 768px) {
-  .categories-container.main-layout {
-    height: 600px;
-    aspect-ratio: unset;
-  }
-  
-  .categories-container.main-layout .main-page-выпечка {
-    width: 48%;
-    height: 16%;
-    left: 0;
-  }
-  
-  .categories-container.main-layout .main-page-десерты,
-  .categories-container.main-layout .main-page-заморозка,
-  .categories-container.main-layout .main-page-салаты,
-  .categories-container.main-layout .main-page-хлеб {
-    width: 23%;
-    height: 16%;
-    top: 18%;
-  }
-  
-  .categories-container.main-layout .main-page-десерты { left: 0; }
-  .categories-container.main-layout .main-page-заморозка { left: 25%; }
-  .categories-container.main-layout .main-page-салаты { left: 50%; }
-  .categories-container.main-layout .main-page-хлеб { left: 75%; }
-  
-  .categories-container.main-layout .main-page-боулы,
-  .categories-container.main-layout .main-page-гарниры,
-  .categories-container.main-layout .main-page-поке {
-    width: 30%;
-    height: 16%;
-    top: 36%;
-  }
-  
-  .categories-container.main-layout .main-page-боулы { left: 0; }
-  .categories-container.main-layout .main-page-гарниры { left: 35%; }
-  .categories-container.main-layout .main-page-поке { left: 70%; }
-  
-  .categories-container.main-layout .main-page-другое {
-    width: 100%;
-    height: 16%;
-    top: 54%;
-    left: 0;
-  }
-}
-
-@media (max-width: 576px) {
-  .categories-container.main-layout {
-    height: 800px;
-  }
-  
-  .categories-container.main-layout .category-button {
-    width: 100% !important;
-    height: 9% !important;
-    position: relative !important;
-    top: auto !important;
-    left: auto !important;
-    margin-bottom: 8px;
-  }
-  
-  .categories-container.main-layout {
-    display: flex;
-    flex-direction: column;
-    height: auto;
-    padding: 10px;
-  }
-}
-
-/* Стили для страницы авторизации */
+/* Стили для страницы регистрации */
 .categories-container.register-layout {
-  position: relative;
-  height: 800px;
-}
-
-.categories-container.register-layout .category-button {
-  position: absolute;
-  background-size: cover;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.categories-container.register-layout .category-button:hover {
-  transform: scale(1.03);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 13px;
+  padding: 20px;
+  max-width: 800px;
+  align-items: end;
 }
 
 .categories-container.register-layout .main-category {
-  width: 390px;
-  height: 160px;
-  top: 241px;
-  left: 133px;
+    width: 60.9%;
+    aspect-ratio: 2.4366/1;
+    margin-right: 3px;
 }
 
 .categories-container.register-layout .sub-category {
-  width: 190px;
-  height: 190px;
+  width: 29.67%;
+  aspect-ratio: 1/1;
 }
 
-.categories-container.register-layout .sub-category:nth-child(2) { top: 211px; left: 539px; }
-.categories-container.register-layout .sub-category:nth-child(3) { top: 414px; left: 133px; }
-.categories-container.register-layout .sub-category:nth-child(4) { top: 414px; left: 336px; }
-.categories-container.register-layout .sub-category:nth-child(5) { top: 414px; left: 539px; }
-.categories-container.register-layout .sub-category:nth-child(6) { top: 617px; left: 133px; }
-.categories-container.register-layout .sub-category:nth-child(7) { top: 617px; left: 336px; }
-.categories-container.register-layout .sub-category:nth-child(8) { top: 617px; left: 539px; }
-
-.categories-container.catalog-layout {
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-}
-
-.categories-container.catalog-layout .main-category {
-  grid-column: span 2;
-  height: 250px;
-}
-
-.categories-container.catalog-layout .sub-category {
-  height: 180px;
-}
-
+/* Общие стили для кнопок категорий */
 .category-button {
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 8px;
   background-size: cover;
+  background-position: center;
   position: relative;
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .category-button:hover {
   transform: scale(1.03);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.category-button::before {
+.category-button::after {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: none;
-  border-radius: 8px;
+  z-index: -1;
+}
+
+.category-button span {
+  position: relative;
+  z-index: 2;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  padding: 0.5rem;
+}
+
+/* Адаптивные стили */
+@media (max-width: 992px) {
+  .categories-container.register-layout .sub-category {
+    width: calc(33.333% - 9px);
+  }
+}
+
+@media (max-width: 768px) {
+  .categories-container.register-layout .sub-category {
+    width: calc(50% - 7px);
+  }
+}
+
+@media (max-width: 576px) {
+  .categories-container.register-layout .main-category {
+    height: 120px;
+  }
+  
+  .categories-container.register-layout .sub-category {
+    width: 100%;
+    height: 100px;
+  }
+  
+  .category-button span {
+    font-size: 16px;
+  }
+}
+
+
+/* Стили для каталога */
+.categories-container.catalog-layout {
+  grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.categories-container.catalog-layout .main-category {
+  grid-column: span 1;
+  aspect-ratio: 1/1;
+}
+
+.categories-container.catalog-layout .sub-category {
+  aspect-ratio: 1/1;
 }
 
 .catalog-layout .category-button {
-  height: 60px;
+  height: 100%;
 }
 
 .catalog-layout .category-button span {
-  font-size: 14px;
-  color: #333;
-  text-shadow: none;
-}
-
-.catalog-layout .main-category {
-  grid-column: span 1;
+  font-size: clamp(12px, 2vw, 16px);
 }

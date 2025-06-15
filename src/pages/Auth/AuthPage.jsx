@@ -14,7 +14,6 @@ const AuthPage = ({ isLogin = false }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
-  // Очистка только токена при заходе на страницу аутентификации
   useEffect(() => {
     localStorage.removeItem('authToken');
   }, []);
@@ -75,13 +74,15 @@ const AuthPage = ({ isLogin = false }) => {
   return (
     <div className="auth-container">
       <div className="categories-section">
+        <div className="categories-wind">
         <div className="main-title-container">
           <h1 className="main-title">Закажи и наслаждайся</h1>
         </div>
         <CategoryButtons isAuthPage={true} />
+        </div>
       </div>
 
-      <div className="form-section">
+      <div className="form-section-1">
         <div className='form-auth'>
           <div className="auth-header">
             <h2>{isLogin ? 'Вход' : 'Регистрация'}</h2>
@@ -148,7 +149,7 @@ const AuthPage = ({ isLogin = false }) => {
 
           <div style={{
           background: 'none',
-          width: '90.7%',
+          width: '100%',
           alignItems: 'center',
           justifyContent: 'center',
           }} 

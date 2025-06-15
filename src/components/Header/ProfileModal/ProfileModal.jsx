@@ -34,7 +34,7 @@ const ProfileModal = ({ onClose, isPartnerPage }) => {
       console.log('Ответ с бэкенда:', data);
 
       const user = data.currentUser || {};
-      const userShop = Array.isArray(data.shop) && data.shop.length > 0 ? data.shop[0] : {};
+      const userShop = Array.isArray(data.shops) && data.shops.length > 0 ? data.shops[0] : {};
 
       setUserData(prev => ({
         ...prev,

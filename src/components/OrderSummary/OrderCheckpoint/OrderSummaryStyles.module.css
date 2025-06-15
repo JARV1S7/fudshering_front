@@ -20,14 +20,14 @@
   display: flex;
   flex-direction: column;
   background-color: #ffffff;
-  width: 74.62%;
+  width: 100%;
   border-radius: 20px;
   padding: 59px 100px;
 }
 
 .summaryTitle {
   font-weight: 600;
-  font-size: 24px;
+  font-size: 25px;
   line-height: 100%;
   margin-bottom: 32px;
   margin-top: 0;
@@ -141,14 +141,28 @@
 
 @media (max-width: 1440px) {
   .orderSummary {
-    max-width: 750px;
+    max-width: 600px;
     padding: 24px;
+  }
+
+  .summaryContent{
+    padding:59px 60px;
   }
 }
 
 @media (max-width: 1200px) {
   .orderSummary {
-    max-width: 650px;
+    max-width: 600px;
+    max-height: 100vh;
+    min-height: 60vh;
+  }
+
+  .summaryTitle {
+    font-size: 21px;
+  }
+
+  .summaryContent{
+    padding:30px 40px;
   }
 }
 
@@ -178,6 +192,7 @@
   
   .summaryTitle {
     font-size: 20px;
+    margin-bottom: 0;
   }
   
   .sectionTitle {

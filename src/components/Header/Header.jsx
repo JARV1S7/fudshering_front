@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styles from './Header.module.css';
 import ProfileModal from './ProfileModal/ProfileModal';
@@ -12,38 +12,95 @@ const Header = () => {
   const [userName, setUserName] = useState({ firstName: '', lastName: '' });
   const [currentUser, setCurrentUser] = useState(null);
 
+  const [ordersCount, setOrdersCount] = useState(0);
+  const [totalSavings, setTotalSavings] = useState(0);
+
   const location = useLocation();
   const navigate = useNavigate();
+  const sidebarRef = useRef(null);
+  const profileMenuRef = useRef(null);
 
   const isCartPage = location.pathname === '/cart';
   const isPartnerPage = location.pathname.startsWith('/partner');
+  const [showHeader, setShowHeader] = useState(true);
+const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
-    const fetchUserData = async () => {
+    const handleClickOutside = (event) => {
+      if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+        setShowSidebar(false);
+      }
+      if (profileMenuRef.current && !profileMenuRef.current.contains(event.target)) {
+        setShowProfileMenu(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+  const handleScroll = () => {
+    const currentScrollY = window.scrollY;
+
+    if (currentScrollY > lastScrollY && currentScrollY > 100) {
+      setShowHeader(false);
+    } else {
+      setShowHeader(true);
+    }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
+
+  useEffect(() => {
+    const fetchUserDataAndOrders = async () => {
       try {
         const token = localStorage.getItem('authToken');
         if (!token) return;
 
-        const res = await fetch('http://localhost:8080/shops', {
+        const resShops = await fetch('http://localhost:8080/shops', {
           method: 'GET',
           headers: { 'Authorization': `Bearer ${token}` }
         });
-        if (!res.ok) throw new Error('Ошибка загрузки данных пользователя');
-        const data = await res.json();
+        if (!resShops.ok) throw new Error('Ошибка загрузки данных пользователя');
+        const dataShops = await resShops.json();
 
-        if (data.currentUser) {
-          setCurrentUser(data.currentUser);
+        if (dataShops.currentUser) {
+          setCurrentUser(dataShops.currentUser);
           setUserName({ 
-            firstName: data.currentUser.firstName || '', 
-            lastName: data.currentUser.lastName || '' 
+            firstName: dataShops.currentUser.firstName || '', 
+            lastName: dataShops.currentUser.lastName || '' 
           });
+
+          const resOrders = await fetch('http://localhost:8080/orders', {
+            headers: { 'Authorization': `Bearer ${token}` }
+          });
+          if (!resOrders.ok) throw new Error('Ошибка загрузки заказов');
+          const ordersData = await resOrders.json();
+
+          const userOrders = ordersData.filter(order => order.userId === dataShops.currentUser.id);
+
+          setOrdersCount(userOrders.length);
+
+          const savingsSum = userOrders.reduce((sum, order) => {
+            const orderSaving = (order.finalPrice || 0) - (order.discountPrice || 0);
+            return sum + (orderSaving > 0 ? orderSaving : 0);
+          }, 0);
+
+          console.log('Общая сумма экономии:', savingsSum);
+          setTotalSavings(savingsSum);
         }
       } catch (err) {
-        console.error('Ошибка при загрузке пользователя:', err);
+        console.error('Ошибка при загрузке пользователя или заказов:', err);
       }
     };
 
-    fetchUserData();
+    fetchUserDataAndOrders();
   }, []);
 
   const handleLogout = () => {
@@ -58,13 +115,10 @@ const Header = () => {
     }
 
     if (currentUser.role === 'ROLE_ADMIN') {
-      // Пользователь с ролью ADMIN — переходим в дашборд партнёра
       navigate('/partner-dashboard');
     } else if (currentUser.role === 'ROLE_USER') {
-      // Обычный пользователь — переходим на страницу "Стать партнером"
       navigate('/become-partner');
     } else {
-      // Для других ролей — можно задать логику или оставить переход на главную
       navigate('/');
     }
   };
@@ -77,7 +131,6 @@ const Header = () => {
       return;
     }
 
-    // Отправляем запрос на бэкенд с токеном для обновления данных
     const res = await fetch('http://localhost:8080/shops', {
       method: 'GET',
       headers: { 'Authorization': `Bearer ${token}` }
@@ -86,7 +139,6 @@ const Header = () => {
     if (!res.ok) throw new Error('Ошибка обновления данных пользователя');
 
     const data = await res.json();
-    // Здесь можно обновить состояние пользователя, если нужно
     if (data.currentUser) {
       setCurrentUser(data.currentUser);
       setUserName({ 
@@ -95,18 +147,16 @@ const Header = () => {
       });
     }
 
-    // Перенаправляем на главную страницу
     navigate('/');
   } catch (error) {
     console.error('Ошибка при смене режима:', error);
-    // Можно показать уведомление или перенаправить на логин
     navigate('/login');
   }
 };
 
   return (
     <div className={styles.headerWrapper}>
-      <header className={styles.mainHeader}>
+      <header className={`${styles.mainHeader} ${showHeader ? styles.visible : styles.hidden}`}>
         <div className={styles.burgerMenu} onClick={() => setShowSidebar(!showSidebar)}>
           <div className={styles.burgerLine}></div>
           <div className={styles.burgerLine}></div>
@@ -114,7 +164,7 @@ const Header = () => {
         </div>
 
         {showSidebar && (
-          <div className={styles.sidebarMenu}>
+          <div ref={sidebarRef} className={styles.sidebarMenu}>
             <Link 
               to={isPartnerPage ? "/partner-dashboard" : "/"} 
               className={styles.sidebarItem}
@@ -131,7 +181,6 @@ const Header = () => {
           </div>
         )}
 
-        {/* Заменяем старый searchBar на новый компонент */}
         <SearchBar isPartnerPage={isPartnerPage} />
 
         <div className={styles.headerIcons}>
@@ -175,7 +224,7 @@ const Header = () => {
           </div>
 
           {showProfileMenu && (
-            <div className={styles.profileMenu}>
+            <div ref={profileMenuRef} className={styles.profileMenu}>
               <div className={styles.profileHeader}>
                 <div className={styles.profileName}>
                   {userName.lastName} {userName.firstName}
@@ -211,11 +260,11 @@ const Header = () => {
                 <div className={styles.statsContainer}>
                   <div className={styles.statBlock}>
                     <div className={styles.statLabel}>Заказов</div>
-                    <div className={styles.statValue}>244</div>
+                    <div className={styles.statValue}>{ordersCount}</div>
                   </div>
                   <div className={`${styles.statBlock} ${styles.savingsBlock}`}>
                     <div className={styles.statLabel}>Сэкономил</div>
-                    <div className={styles.statValue}>46 244 ₽</div>
+                    <div className={styles.statValue}>{totalSavings.toLocaleString()} ₽</div>
                   </div>
                 </div>
               )}
@@ -278,10 +327,6 @@ const Header = () => {
           <ProfileModal
             onClose={() => setShowProfileModal(false)}
             isPartnerPage={isPartnerPage}
-            // onPhotoUpdate={(newPhoto) => {
-            //   setProfilePhoto(newPhoto);
-            // //   localStorage.setItem('profilePhoto', newPhoto);
-            // }}
           />
         )}
       </header>

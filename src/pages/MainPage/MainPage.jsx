@@ -21,7 +21,6 @@ const categoryEnumToId = {
 const MainPage = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [userRole, setUserRole] = useState(null);
 
   useEffect(() => {
     const fetchAllProducts = async () => {
@@ -41,13 +40,8 @@ const MainPage = () => {
         if (!res.ok) throw new Error('Ошибка загрузки магазинов');
         const data = await res.json();
 
-        const roles = data.currentUser?.role || [];
-        setUserRole(roles);
-
         const allFoods = data.food || [];
-        const visibleFoods = roles.includes('ROLE_USER')
-          ? allFoods.filter(food => food.active)
-          : allFoods;
+        const visibleFoods = allFoods.filter(food => food.active === undefined || food.active === true);
 
         setProducts(visibleFoods);
       } catch (error) {
@@ -60,7 +54,6 @@ const MainPage = () => {
     fetchAllProducts();
   }, []);
 
-  // Группировка по категориям через enum
   const productsByCategory = products.reduce((acc, product) => {
     const categoryId = categoryEnumToId[product.category] || 9;
     const category = productCategories.find(c => c.id === categoryId) || { id: 9, name: 'Другое' };
